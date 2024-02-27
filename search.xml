@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>UART协议</title>
+      <link href="/2024/02/27/UART%E5%8D%8F%E8%AE%AE/"/>
+      <url>/2024/02/27/UART%E5%8D%8F%E8%AE%AE/</url>
+      
+        <content type="html"><![CDATA[<h1 id="UART"><a href="#UART" class="headerlink" title="UART"></a>UART</h1><p><strong>一句话总结串口通信</strong>：</p><p>UART是一种<strong>串行、异步、全双工的通信协议</strong>。<code>TX</code>引脚输出定时反转的高低电平，<code>RX</code>引脚定时读取引脚的高低电平，每个字节的数据加上起始位、停止位、可选的校验位，打包成数据帧，依次输出在<code>TX</code>引脚，另一端<code>RX</code>引脚依次接收。</p><img src="https://s2.loli.net/2024/02/27/k6MOpK8XtQFyuvh.png" class="lazyload placeholder" data-srcset="https://s2.loli.net/2024/02/27/k6MOpK8XtQFyuvh.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="uart示意图.png" style="zoom: 33%;" /><blockquote><p>UART接口不使用时钟信号来同步发送器和接收器设备，而是以异步方式传输数据。发送器根据其时钟信号生成的位流取代了时钟信号，接收器使用其内部时钟信号对输入数据进行采样。同步点是通过两个设备的<strong>相同波特率</strong>来管理的。如果波特率不同，发送和接收数据的时序可能会受影响，导致数据处理过程出现不一致。允许的波特率差异最大值为10%，超过此值，位的时序就会脱节。</p></blockquote><h2 id="电平标准"><a href="#电平标准" class="headerlink" title="电平标准"></a>电平标准</h2><p>电平标准是数据<code>1</code>和数据<code>0</code>的表达方式，是人为规定的电压与数据的对应关系，串口常用的电平标准有如下三种：</p><ul><li><strong>TTL电平</strong>：+3.3V或+5V表示1，0V表示0</li><li><strong>RS232电平</strong>：-3<del>-15V表示1，+3</del>+15V表示0</li><li><strong>RS485电平</strong>：两线压差+2<del>+6V表示1，-2</del>-6V表示0（差分信号）</li></ul><h2 id="波特率：规定了串口通信的速率"><a href="#波特率：规定了串口通信的速率" class="headerlink" title="波特率：规定了串口通信的速率"></a>波特率：规定了串口通信的速率</h2><p>波特率规定串口通信的速率（串口一般使用异步通信，需要双方约定一个通信速率），例如每隔1s发送一位，接收方也要每隔1s接收一位，接收快了，就会重复接收某些位，如果接收慢了，就会漏掉某些位，发送和接收必须约定好速率，波特率本义是<em>每秒传输码元的个数</em>，单位是<em>码元&#x2F;s</em>，或者直接叫<strong>波特(Baud)<strong>，</strong>比特率是每秒传输的比特数</strong>，单位是<code>bit/s</code>，或者叫<code>bps</code>，<strong>在二进制调制的情况下，一个码元就是一个bit</strong>，此时波特率就等于比特率，单片机的串口通信，基本都是二进制调制，也就是高电平表示1，低电平表示0，一位就是1bit，规定波特率为1000bps，表示1s要发1000位，每一位的时间就是1ms，发送方每隔1ms发送一位，接收方每隔1ms接收一位，</p><h2 id="串口数据帧的整体结构"><a href="#串口数据帧的整体结构" class="headerlink" title="串口数据帧的整体结构"></a>串口数据帧的整体结构</h2><p>串口中，每一个字节都装载在一个数据帧里面，每个数据帧都由<strong>起始位、数据位和停止位</strong>组成，数据位有8个，代表一个字节的8位，还可以在数据位的最后加一个<strong>奇偶校验位</strong>，这样数据位总共就是9位，其中有效载荷是前8位，代表1个字节，校验位跟在有效载荷后面，占1位<br><img src="https://s2.loli.net/2024/02/27/e1z7tGMQkvCSbhJ.png" class="lazyload placeholder" data-srcset="https://s2.loli.net/2024/02/27/e1z7tGMQkvCSbhJ.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="uart数据帧.png"></p><h3 id="起始位"><a href="#起始位" class="headerlink" title="起始位"></a>起始位</h3><p>标志一个数据帧的开始，固定为<strong>低电平</strong>。（串口的空闲状态是高电平，没有数据传输的时候引脚必须置高电平，作为空闲状态）需要传输的时候先发送一个起始位，起始位必须是低电平，产生一个下降沿（告诉接受设备，这一帧数据要开始了），表示传输开始</p><h3 id="停止位"><a href="#停止位" class="headerlink" title="停止位"></a>停止位</h3><p>标志一个数据帧的结束，固定为<strong>高电平</strong>。在一个字节数据发送完成后，必须要有一个停止位，这个停止位的作用是，用于数据帧间隔，固定为高电平，同时这个停止位也是为下一个起始位做准备的，如果没有停止位，那当为数据最后一位是<code>0</code>的时候，下次再发送新的一帧，就没法产生下降沿了—–停止位把引脚恢复成高电平，方便下一次的下降沿，如果没有数据了，引脚也为高电平，代表空闲状态</p><h3 id="数据位"><a href="#数据位" class="headerlink" title="数据位"></a>数据位</h3><p>表示数据帧的有效载荷，1为高电平，0位低电平，<strong>低位先行</strong></p><p>有两种表示方法，一种是把校验位作为数据位的一部分，另一种就是把校验位和数据位独立开.<br>数据位就是有效载荷，校验位就是独立的1位，在串口助手里就是选择的把数据位和校验位分开描述的方法，总之无论是合在一起，还是分开描述，描述的都是同一个东西</p><p>低位先行的意思是，如果你要发送一个<code>0x0F</code>，二进制为<code>00001111</code>，发送时低位先行也就是按<code>11110000</code>的顺序发送</p><h3 id="校验位"><a href="#校验位" class="headerlink" title="校验位"></a>校验位</h3><p>串口使用<strong>奇偶校验位</strong>方法，这里奇偶指的是数据帧中<em>1的个数</em></p><ul><li>奇校验：1的个数为奇数；</li><li>偶校验：1的个数为偶数</li></ul><p>如果使用了奇校验，那么<strong>包括校验位在内</strong>的9位数据会出现奇数个1，如果传输 <code>0000 1111</code>，目前总共4个1，是偶数个，那么校验位就需要再补一个1，连同校验位就是<code>0000 1111 1</code>，总共5个1，保证1的个数为奇数，如果数据是<code>0000 1110</code>，此时3个1，是奇数个，那么校验位就补1个0，连同校验位就是<code>0000 1110 0</code>，发送方，在发送数据后，会补一个校验位，保证1的个数为奇数，接收方在接收数据后，会验证数据位和校验位，如果1的个数还是奇数，就认为数据没有出错。</p><p>但是奇偶校验的检出率不是很高，例如，如果有两位数据同时出错，就特性不变，那就校验不出来了，就能校验只能保证一定程度上的数据校验，如果想要更高的检出率可以选择CRC校验，STM32内部也有CRC外设。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> STM32 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> UART </tag>
+            
+            <tag> 通信协议 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>十大排序算法详解</title>
       <link href="/2024/02/27/%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3/"/>
       <url>/2024/02/27/%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3/</url>
