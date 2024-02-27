@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>SPI协议</title>
+      <link href="/2024/02/27/SPI%E5%8D%8F%E8%AE%AE/"/>
+      <url>/2024/02/27/SPI%E5%8D%8F%E8%AE%AE/</url>
+      
+        <content type="html"><![CDATA[<h1 id="SPI协议简述"><a href="#SPI协议简述" class="headerlink" title="SPI协议简述"></a>SPI协议简述</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul><li>SPI（Serial Peripheral Interface）是由Motorola公司开发的一种通用数据总线</li><li>四根通信线：<ul><li>SCK（Serial Clock）提供时钟信号</li><li>MOSI（Master Output Slave Input）：在主模式下发送数据，在从模式下接收数据。</li><li>MISO（Master Input Slave Output）：在从模式下发送数据，在主模式下接收数据。</li><li>片选信号线SS（Slave Select）：它的功能是用来选择指定的从设备，让主设备可以单独地与特定从设备通讯，避免数据线上的冲突。</li></ul></li><li>同步，全双工（数据发送和接收用两根线）</li><li>支持总线挂载多设备（一主多从，<strong>只能有一个主设备</strong>）</li><li>SPI所有通信线都是<strong>单端信号</strong>，它们的高低电平都是相对于GND的电压差，所以，单端信号所有的设备还需要共地；从机没有独立供电的话，主机还需要再额外引出电源正极VCC，给从机供电。</li><li>所有SPI设备的SCK、MOSI、MISO分别连在一起</li><li>主机另外引出多条SS控制线，分别接到各从机的SS引脚。主机的SS线都是输出，从机的SS线都是输入；<strong>SS线是低电平有效的</strong>，主机想指定哪个从机就把对应的SS输出线置低电平；同一时间只能选中一个从机。</li><li>输出引脚配置为<strong>推挽输出</strong>，输入引脚配置为<strong>浮空或上拉输入</strong>。推挽输出，高低电平均有很强的驱动能力，这将使得SPI引脚信号的下降沿和上升沿非常迅速。</li></ul><img src="https://s2.loli.net/2024/02/27/eSPxzq754E3jKtA.png" class="lazyload placeholder" data-srcset="https://s2.loli.net/2024/02/27/eSPxzq754E3jKtA.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="spi基本结构.png" style="zoom: 33%;" /><h3 id="多个MISO如何避免冲突？"><a href="#多个MISO如何避免冲突？" class="headerlink" title="多个MISO如何避免冲突？"></a>多个MISO如何避免冲突？</h3><p>SPI协议规定：当从机的SS引脚为高电平（即未被选中时），它的MISO引脚必须切换为高阻态。SS为低电平时，MISO才允许变为推挽输出。</p><h2 id="基本时序"><a href="#基本时序" class="headerlink" title="基本时序"></a>基本时序</h2><ul><li><strong>起始条件</strong>：SS从高电平切换到低电平</li><li><strong>终止条件</strong>：SS从低电平切换到高电平</li><li><strong>SS线是低电平有效的</strong>，主机想指定哪个从机就把对应的SS输出线置低电平</li><li>SPI有四种采样模式，由两个配置位决定：分别为CPOL(Clock Polarity, 时钟极性)、CPHA(Clock Phase, 时钟相位)<ul><li>CPOL：规定空闲状态时钟的高低电平。<ul><li>CPOL&#x3D;0，SCK低电平为空闲状态；</li><li>CPOL&#x3D;1，SCK高电平为空闲状态</li></ul></li><li>CPHA：规定数据移入、移出的时机。<ul><li>CPHA&#x3D;0，SCK第一个边沿(上升沿)采样数据，第二个边沿(下降沿)发送数据；</li><li>CPHA&#x3D;1，SCK第一个边沿发送数据，第二个边沿采样数据</li></ul></li></ul></li></ul><blockquote><p>SPI对于一帧数据有多少位没有规定，完全取决于芯片的设定，只要符合SPI的四种采样模式和电气属性，它就属于SPI通讯</p></blockquote><h3 id="SPI发送数据过程"><a href="#SPI发送数据过程" class="headerlink" title="SPI发送数据过程"></a>SPI发送数据过程</h3><p>SPI通信的基础是<strong>交换字节</strong>。也就是说，SPI通信的过程中，通过MOSI、MISO线，主机和从机的移位寄存器会形成一个循环移位操作，每个比特的通信都是转圈的循环移位，8个时钟周期完整的交换一个字节。数据按<strong>高位在前、低位在后传输</strong>（高位先行，大端模式）。从机只有在主机发送命令时才能接收或向主机传输数据。</p><img src="https://s2.loli.net/2024/02/27/SHioN3mQaD9uzG1.png" class="lazyload placeholder" data-srcset="https://s2.loli.net/2024/02/27/SHioN3mQaD9uzG1.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="SPI发送与接收.png" style="zoom: 50%;" /><ol><li>拉低<code>SS</code>线，表示与该设备通信</li><li>主机通过发送<code>SCK</code>时钟信号，来告诉从机写数据或者读数据。这里要注意，SCK时钟信号有效状态由时钟极性<code>CPOL</code>决定。</li><li>主机(Master)将要发送的数据写到发送数据缓存区(Menory)，缓存区经过移位寄存器(0~7)，串行移位寄存器通过MOSI信号线将字节一位一位的移出去传送给从机，同时MISO接口接收到的数据经过移位寄存器一位一位的移到接收缓存区。</li><li>从机(Slave)也将自己的串行移位寄存器(0~7)中的内容通过MISO信号线返回给主机。同时通过MOSI信号线接收主机发送的数据，这样，两个移位寄存器中的内容就被交换。</li></ol><blockquote><p>SPI通信的过程中，通过MOSI、MISO线，主机和从机的移位寄存器会形成一个循环移位操作，上述过程3和过程4实际上是同时发生的。</p></blockquote><h2 id="SPI相较于IIC"><a href="#SPI相较于IIC" class="headerlink" title="SPI相较于IIC"></a>SPI相较于IIC</h2><ol><li>SPI传输更快，SPI没有规定最大传输速度，这个最大传输速度取决于芯片厂商的设计需求</li><li>设计简单，实现的功能没有I2C那么多，只支持一主多从</li><li>SPI的硬件开销比较大，通信线的个数比较多，且通信过程中，经常会有资源浪费的现象</li><li>SPI的风格：最简单最快速的完成任务,没有应答机制</li></ol><h2 id="SPI的优缺点"><a href="#SPI的优缺点" class="headerlink" title="SPI的优缺点"></a>SPI的优缺点</h2><ul><li><p><strong>优点</strong></p><ol><li>无起始位和停止位，因此数据位可以连续传输而不会被中断；</li><li>没有像I2C这样复杂的从设备寻址系统；</li><li>数据传输速率比I2C更高（几乎快两倍）；</li><li>分离的MISO和MOSI信号线，因此可以同时发送和接收数据；</li><li>极其灵活的数据传输，不限于8位，它可以是任意大小的字；</li><li>非常简单的硬件结构。从站不需要唯一地址（与I2C不同）。从机使用主机时钟，不需要精密时钟振荡器&#x2F;晶振（与UART不同）。不需要收发器（与CAN不同）。</li></ol></li><li><p><strong>缺点</strong></p><ol><li>使用四根信号线（I2C和UART使用两根信号线）；</li><li>无法确认是否已成功接收数据（I2C拥有此功能）；</li><li>没有任何形式的错误检查，如UART中的奇偶校验位；</li><li>只允许一个主设备；</li><li>没有硬件从机应答信号（主机可能在不知情的情况下无处发送）；</li><li>没有定义硬件级别的错误检查协议；</li><li>与RS-232和CAN总线相比，只能支持非常短的距离；</li></ol></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> STM32 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 通信协议 </tag>
+            
+            <tag> SPI </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>IIC协议</title>
       <link href="/2024/02/27/IIC%E5%8D%8F%E8%AE%AE/"/>
       <url>/2024/02/27/IIC%E5%8D%8F%E8%AE%AE/</url>
