@@ -4,6 +4,59 @@
   
     
     <entry>
+      <title>DMA简要介绍</title>
+      <link href="/2024/02/28/DMA%E7%AE%80%E8%A6%81%E4%BB%8B%E7%BB%8D/"/>
+      <url>/2024/02/28/DMA%E7%AE%80%E8%A6%81%E4%BB%8B%E7%BB%8D/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ADC模数转换器简要介绍</title>
+      <link href="/2024/02/28/ADC%E6%A8%A1%E6%95%B0%E8%BD%AC%E6%8D%A2%E5%99%A8%E7%AE%80%E8%A6%81%E4%BB%8B%E7%BB%8D/"/>
+      <url>/2024/02/28/ADC%E6%A8%A1%E6%95%B0%E8%BD%AC%E6%8D%A2%E5%99%A8%E7%AE%80%E8%A6%81%E4%BB%8B%E7%BB%8D/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PWM简要介绍</title>
+      <link href="/2024/02/28/PWM%E7%AE%80%E8%A6%81%E4%BB%8B%E7%BB%8D/"/>
+      <url>/2024/02/28/PWM%E7%AE%80%E8%A6%81%E4%BB%8B%E7%BB%8D/</url>
+      
+        <content type="html"><![CDATA[<h1 id="PWM简要介绍"><a href="#PWM简要介绍" class="headerlink" title="PWM简要介绍"></a>PWM简要介绍</h1><p>使用通用定时器的<em>输出比较模块</em>来输出PWM波形；<br>输出比较可以通过比较时基单元计数器(CNT)和捕获&#x2F;比较寄存器(CCR)值的关系，来对输出电平进行置1、置0或翻转的操作，用于输出一定频率和占空比的PWM波形（最主要的功能）</p><h2 id="PWM的三个重要参数：频率、占空比、分辨率"><a href="#PWM的三个重要参数：频率、占空比、分辨率" class="headerlink" title="PWM的三个重要参数：频率、占空比、分辨率"></a>PWM的三个重要参数：频率、占空比、分辨率</h2><ul><li><p><strong>频率：1&#x2F;Ts；</strong> <code>Ts</code>代表一个高低电平变换周期的时间，PWM的频率越快，等效模拟信号就越平稳，同时性能开销就越大</p></li><li><p><strong>占空比：</strong> 高电平时间对于整个周期的时间比例，占空比决定了PWM等效出来的模拟电压的大小，占空比越大，等效的模拟电压就越来越趋近于高电平；占空比越小，等效的模拟电压就越来越趋近于低电平。这个等效关系一般来说时线性的，如高电平为5V，低电平为0V，50%的占空比，等效于中间电压，就是2.5V；20%占空比就等效于1&#x2F;5处的电压，就是1V。</p></li><li><p><strong>分辨率：</strong> 占空比高低的精细程度。(占空比的变化幅度)</p></li></ul><h2 id="通用定时器的输出比较模块如何输出PWM波形？"><a href="#通用定时器的输出比较模块如何输出PWM波形？" class="headerlink" title="通用定时器的输出比较模块如何输出PWM波形？"></a>通用定时器的输出比较模块如何输出PWM波形？</h2><p>通过比较<code>CCR</code>(<strong>捕获&#x2F;比较寄存器</strong>)和<code>CNT</code>(<strong>时基单元计数器</strong>)的值</p><p><img src="https://s2.loli.net/2024/02/28/lCUY3zqcbHeT5wB.png" class="lazyload placeholder" data-srcset="https://s2.loli.net/2024/02/28/lCUY3zqcbHeT5wB.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="pwm.png"></p><p>配置好时基单元，它的计数器<code>CNT</code>就开始不断地自增运行。在<strong>输出比较单元</strong>中与<code>CCR</code>寄存器的值不断进行比较，并根据所选择的输出比较模式输出电平<code>REF</code>；<code>REF</code>再经过极性选择和输出使能，输出到GPIO口；<code>CNT</code>的值自增达到<code>ARR</code>中设定的重装值后就重新从0开始计数（<code>REF</code>是一个频率可调，占空比也可调的PWM波形）</p><p>以PWM模式1为例子，CCR的值是30，ARR的值最高是99，当蓝色线的CNT的值小于CCR时，REF为有效电平，所以置高电平，当CNT&gt;&#x3D;CCR时，REF为无效电平，所以置低电平。然后当CNT的值达到最高值与ARR值相等（99），CNT重置为0，依次进行。得到分辨率为0.01，占空比为0.3的PWM波形</p><blockquote><p>注意：PWM占空比，当等于30的瞬间，就已经跳为低电平，0~29是高电平，总共为30个数<br>分辨率CCR的变化范围取决于AAR的值，ARR越大，CCR的范围就越大，对应的分辨率就越大。</p></blockquote><h2 id="PWM参数计算方法"><a href="#PWM参数计算方法" class="headerlink" title="PWM参数计算方法"></a>PWM参数计算方法</h2><img src="https://s2.loli.net/2024/02/28/ThwXFuRtxgLzQcs.png" class="lazyload placeholder" data-srcset="https://s2.loli.net/2024/02/28/ThwXFuRtxgLzQcs.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="pwm参数计算.png" style="zoom:33%;" /><ul><li>PWM<strong>频率</strong>： <code>Freq = CK_PSC / (PSC + 1) / (ARR + 1)</code> ，即时钟频率&#x2F;psc+1&#x2F;arr+1</li><li>PWM<strong>占空比</strong>： <code>Duty = CCR / (ARR + 1)</code></li><li>PWM<strong>分辨率</strong>： <code>Reso = 1 / (ARR + 1)</code></li></ul><h2 id="输出比较的8种模式"><a href="#输出比较的8种模式" class="headerlink" title="输出比较的8种模式"></a>输出比较的8种模式</h2><p><img src="https://s2.loli.net/2024/02/28/BEYnroKw39jDTM2.png" class="lazyload placeholder" data-srcset="https://s2.loli.net/2024/02/28/BEYnroKw39jDTM2.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="输出比较8种模式.png"></p><p>这个模式控制器的输出是<code>CNT</code>和<code>CCR</code>的大小关系，输出是<code>REF</code>的高低电平，可以选择多种模式来更加灵活地控制<code>REF</code>输出，这个模式可以通过寄存器来进行配置。</p><h3 id="（1）-冻结"><a href="#（1）-冻结" class="headerlink" title="（1） 冻结"></a>（1） 冻结</h3><p>理解为CNT和CCR无效，REF保持为原状态</p><p>作用：假设你正在输出PWM波，暂停一段时间输出，则可以设置这个模式，一旦切换为冻结模式后，输出就可以暂停了，并且高低电平也维持为暂停时刻的状态保持不变。</p><h3 id="（2）匹配时电平翻转"><a href="#（2）匹配时电平翻转" class="headerlink" title="（2）匹配时电平翻转"></a>（2）匹配时电平翻转</h3><p>该模式可以做波形输出</p><p>这个模型可以方便地输出一个频率可调，占空比始终为50%的 PWM波形</p><p>假设设置CCR为0，那CNT每次更新清0时，就会产生一次CNT&#x3D;CCR时间，就会导致输出电平翻转一次，每更新两次为一个周期，并且高电平和低电平地时间是始终相等的，也就是占空比始终为50%，当你改变定时器更新频率时，输出波形的频率也会随之改变。</p><p><code>输出波形的频率 = 更新频率/2</code></p><h3 id="（3）CNT与CCR无效，REF强制为无效电平或者有效电平"><a href="#（3）CNT与CCR无效，REF强制为无效电平或者有效电平" class="headerlink" title="（3）CNT与CCR无效，REF强制为无效电平或者有效电平"></a>（3）CNT与CCR无效，REF强制为无效电平或者有效电平</h3><p>如果想暂停波形输出，并且在暂停时期保持低电平或者高电平，则可以设置这两个强制输出模式</p><h3 id="（4）PWM模式1、2"><a href="#（4）PWM模式1、2" class="headerlink" title="（4）PWM模式1、2"></a>（4）PWM模式1、2</h3><p>可用于输出频率和占空比都可调的PWM波形，是我们主要使用的模式</p><p>根据PWM模式1与PWM模式2的向上计数做对比，PWM模式2实际上就是PWM模式1输出取反，改变模式1与模式2，只是改变了REF电平的极性而已。</p><p>由图可知，REF输出只有还有一个极性的配置，所以使PWM模式1的正极性与PWM模式2的反极性最终的输出是一样的，输出模式里可以设置极性，最终输出也可以设置极性。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> STM32 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PWM </tag>
+            
+            <tag> 输出比较模块 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>设计模式简单总结</title>
       <link href="/2024/02/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/"/>
       <url>/2024/02/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/</url>
