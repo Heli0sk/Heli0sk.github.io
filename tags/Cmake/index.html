@@ -11,7 +11,7 @@
   <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-  <title>ARM中断知识点小记 | 码到成功</title>
+  <title>标签: Cmake | 码到成功</title>
 
   <link rel="icon" type="image/png" href="/coding.png">
   <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
@@ -558,783 +558,111 @@
 </header>
         <!-- 内容区域 -->
         
-<!-- prismjs 代码高亮 -->
 
+<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"></div>
+<div class="bg-light-floor-tagDetail" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -3;"></div>
 
-
-
-<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -1;"></div>
-
-
-  <!-- 文章详情页顶部图片和标题 -->
-
-
-
-
-<div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
-  background-position: center center;position: relative;background-image:url('https://pic1.zhimg.com/80/v2-03a22891ccba9bccf6424dfd7cbf4be7_1440w.webp')">
-  <div class="post-detail-header-mask"></div>
-  <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
-  
-  <div class="post-detail-header_info-box">
-    <div class="title-box">
-      <span class="title">
-        ARM中断知识点小记
-      </span>
-    </div>
-    
-    
-      
-        <span class="post-detail-header_date">
-          <i class="fas fa-calendar"></i> 发表于：2024-02-29 |
-        </span>
-      
-
-      
-        <span class="post-detail-header_categories">
-          <i class="iconfont iconbookmark1"></i> 分类：
-          
-            <a href="/categories/ARM/" class="post-detail-header_category">
-              ARM
-            </a>
-          
-        </span>
-      
-
-      
-        <div class="post-detail-header_wordcount">
-          <span class="totalcount">
-            <i class="fas fa-file-text-o"></i> 字数统计: 1.8k |
-          </span>
-  
-          <span class="min2read">
-            <i class="fas fa-clock"></i> 阅读时长: 6分钟 |
-          </span>
-  
-          
-            <span class="reading">
-              <i class="fas fa-eye"></i> 阅读量：<span id="busuanzi_value_page_pv"></span>
-            </span>
-          
-        </div>
-      
-    
+<div class="tag-header" style="background-image: url('https://pic1.zhimg.com/80/v2-604a15cef201cf177943af2d915eb2e7_1440w.jpg?source=1940ef5c');">
+  <div class="tag-header-title">
+    tag
   </div>
+  <div class="tag-header-desc">
   
-  
-    <script defer src="/js/bubble/bubble.js"></script>
-  
-</div>
-
-
-
-
-
-<div class="post-detail-content post-row" 
-  style="padding-top: 0px;">
-  <div class="main-content">
-    <article class="post post-detail">
-      <div class="post-content">
-        <h1 id="ARM中断相关知识点小记"><a href="#ARM中断相关知识点小记" class="headerlink" title="ARM中断相关知识点小记"></a>ARM中断相关知识点小记</h1><h2 id="ARM体系中的中断类型"><a href="#ARM体系中的中断类型" class="headerlink" title="ARM体系中的中断类型"></a>ARM体系中的中断类型</h2><h3 id="复位"><a href="#复位" class="headerlink" title="复位"></a>复位</h3><p>（1）当处理器复位引脚有效时，系统产生复位中断，程序跳转到复位异常中断处理程序处执行。</p>
-<p>（2）复位源类型：上电复位、外部硬件复位、内部硬件复位（锁相环失锁复位、软件看门狗复位、检错停机复位、调试端口硬复位）、JTAG复位、外部软件复位、内部软件复位（调试端口软复位、JTAG软复位）。</p>
-<h3 id="未定义指令"><a href="#未定义指令" class="headerlink" title="未定义指令"></a>未定义指令</h3><p>（1）当ARM指令处理器或者是系统的协处理器认为当前的指令未定义时，产生未定义指令中断。</p>
-<p>（2）可以通过该中断机制仿真浮点向量运算。</p>
-<h3 id="软中断"><a href="#软中断" class="headerlink" title="软中断"></a>软中断</h3><p>（1）这是一个<strong>由用户定义的中断指令</strong>，可用于用户模式下的程序调用特权操作指令。</p>
-<p>（2）在实时操作系统中，可以通过该机制实现系统调用功能。</p>
-<h3 id="指令预取中止"><a href="#指令预取中止" class="headerlink" title="指令预取中止"></a>指令预取中止</h3><p>（1）如果<strong>处理器预取的指令</strong>的地址不存在，或者该地址不允许当前指令访问，当该被预取的指令执行时，处理器产生指令预取中止中断。</p>
-<h3 id="数据访问中止"><a href="#数据访问中止" class="headerlink" title="数据访问中止"></a>数据访问中止</h3><p>（1）如果<strong>数据访问指令</strong>的目标地址不存在，或者该地址不允许当前指令访问，处理器产生数据访问中止中断。</p>
-<h3 id="外部中断请求（IRQ）"><a href="#外部中断请求（IRQ）" class="headerlink" title="外部中断请求（IRQ）"></a>外部中断请求（IRQ）</h3><p>（1）当处理器的外部中断请求引脚有效，而且CPSR中的I控制位被清除时，处理器产生外部中断请求中断。</p>
-<p>（2）系统中各个外设通常通过该中断请求处理器服务。</p>
-<h3 id="快速中断请求（FIQ）"><a href="#快速中断请求（FIQ）" class="headerlink" title="快速中断请求（FIQ）"></a>快速中断请求（FIQ）</h3><p>（1）当处理器的外部快速中断请求引脚有效，而且CPSR寄存器中的F控制位被清除时，处理器产生外部快速中断请求中断。</p>
-<h2 id="中断向量表、中断优先级、中断模式、物理寄存器组"><a href="#中断向量表、中断优先级、中断模式、物理寄存器组" class="headerlink" title="中断向量表、中断优先级、中断模式、物理寄存器组"></a>中断向量表、中断优先级、中断模式、物理寄存器组</h2><h3 id="中断向量表"><a href="#中断向量表" class="headerlink" title="中断向量表"></a>中断向量表</h3><p>（1）指定了中断及其处理程序的对应关系，通常存放在存储地址的低端。</p>
-<p>（2）在ARM体系中，中断向量表的大小为32个字节，其中每个异常中断占据4个字节大小，保留4个字节空间。</p>
-<p>（3）每个中断向量对应的中断向量表中的4个字节空间存放了一条跳转指令或者一个向PC寄存器中赋值的数据访问指令。</p>
-<h3 id="中断优先级"><a href="#中断优先级" class="headerlink" title="中断优先级"></a>中断优先级</h3><p>（1）当几个中断同时发生时，就必须按照一定的次序来处理这些中断。</p>
-<p>（2）在ARM中通过给中断赋予一定的优先级来实现这种处理次序。</p>
-<p>（3）当然有的异常中断是不可能同时发生的，如指令预取中止和软中断是由同一条指令的执行触发的，它们是不可能同时发生的。</p>
-<p>（4）处理器在执行某个中断的过程中，称处理器处于特定的中断模式。</p>
-<h3 id="中断向量-中断模式-中断优先级表"><a href="#中断向量-中断模式-中断优先级表" class="headerlink" title="中断向量&amp;中断模式&amp;中断优先级表"></a>中断向量&amp;中断模式&amp;中断优先级表</h3><table>
-<thead>
-<tr>
-<th align="left">中断向量地址</th>
-<th>异常中断类型</th>
-<th>异常中断模式</th>
-<th>优先级</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">0x0</td>
-<td>复位</td>
-<td>特权模式（SVC）</td>
-<td>1</td>
-</tr>
-<tr>
-<td align="left">0x4</td>
-<td>未定义指令</td>
-<td>未定义指令中断模式</td>
-<td>6</td>
-</tr>
-<tr>
-<td align="left">0x8</td>
-<td>软中断（SWI）</td>
-<td>特权模式（SVC）</td>
-<td>6</td>
-</tr>
-<tr>
-<td align="left">0xC</td>
-<td>指令预取终止</td>
-<td>中止模式</td>
-<td>5</td>
-</tr>
-<tr>
-<td align="left">0x10</td>
-<td>数据访问终止</td>
-<td>中止模式</td>
-<td>2</td>
-</tr>
-<tr>
-<td align="left">0x14</td>
-<td>保留</td>
-<td>未使用</td>
-<td>未使用</td>
-</tr>
-<tr>
-<td align="left">0x18</td>
-<td>外部中断请求</td>
-<td>外部中断模式</td>
-<td>4</td>
-</tr>
-<tr>
-<td align="left">0x1C</td>
-<td>快速中断请求</td>
-<td>快速中断模式</td>
-<td>3</td>
-</tr>
-</tbody></table>
-<h3 id="各种不同的处理器模式对应的物理寄存器组"><a href="#各种不同的处理器模式对应的物理寄存器组" class="headerlink" title="各种不同的处理器模式对应的物理寄存器组"></a>各种不同的处理器模式对应的物理寄存器组</h3><h3 id=""><a href="#" class="headerlink" title=""></a></h3><p><img src="https://s2.loli.net/2024/02/29/YuIgHoXbEKGmr61.jpg" class="lazyload placeholder" data-srcset="https://s2.loli.net/2024/02/29/YuIgHoXbEKGmr61.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="处理器模式对应的物理寄存器组.jpg"></p>
-<h2 id="进入和退出中断的过程"><a href="#进入和退出中断的过程" class="headerlink" title="进入和退出中断的过程"></a>进入和退出中断的过程</h2><ol>
-<li><strong>中断响应及保护现场过程</strong></li>
-</ol>
-<p>（1）首先将<code>R0~R12</code>（其他模式）或<code>R0~R7</code>（快速中断模式）PUSH进堆栈中保存，并将堆栈指针保存在对应工作模式的<code>R13（SP）</code>中。</p>
-<p>（2）把即将执行的下一条指令的地址<code>（PC-4）</code>保存到对应工作模式的<code>R14（LR）</code>中；把<code>CPSR</code>的值保存到对应工作模式的<code>SPSR</code>中，以实现对处理器当前状态、中断屏蔽及各标志位的保护。</p>
-<p>（3）设置<code>CPSR</code>的相应位：设置<code>CPSR[4:0]</code>的5位以进入相应的工作模式；<code>CPSR[5] = 0</code>切换到ARM状态；设置<code>CPSR[7] = 1</code>禁止<code>IRQ</code>中断；如果进入复位模式或<code>FIQ</code>模式，还要设置<code>CPSR[6] = 1</code>以禁止<code>FIQ</code>中断。</p>
-<p>（4）给程序计数器PC强制赋值，转入中断向量地址，执行相应的中断服务程序。</p>
-<ol start="2">
-<li><strong>恢复现场及中断返回过程</strong></li>
-</ol>
-<p>（1）根据<code>R13</code>即<code>SP</code>的值将原来保存在堆栈中的<code>R0~R12</code>或<code>R0~R7</code> POP出栈，赋值给相应的寄存器。</p>
-<p>（2）将<code>R14</code>即<code>LR</code>的值赋值给PC，将<code>SPSR</code>的值赋值给<code>CPSR</code>中，恢复被中断的程序状态。</p>
-<ol start="3">
-<li><strong>注意事项</strong></li>
-</ol>
-<p>（1）复位中断处理程序不用返回，因为整个应用系统是从复位中断处理程序开始执行的。</p>
-<p>（2）SWI和未定义指令中断是由当前执行的指令自身产生的，当响应这两种中断时，PC的值还未更新，它指向当前指令后面第二条指令，因此中断返回时执行MOV PC LR即可。</p>
-<p>（3）由于处理器要执行完当前指令再去响应FIQ中断和IRQ中断，这时PC的值已经更新，它指向当前指令后面第三条指令，因此中断返回时要执行SUB PC, LR, #4。</p>
-<ol start="4">
-<li><strong>ARM体系中控制程序执行流程的三种方式</strong></li>
-</ol>
-<p>（1）正常执行程序的过程中，每执行一条<code>ARM/Thumb-2</code>指令，<code>PC += 4</code>；每执行一条Thumb指令，<code>PC += 2</code>。整个过程是顺序执行。</p>
-<p>（2）通过跳转指令，程序可以跳转到特定的地址标志处执行，或者跳转到特定的子程序处执行。其中，B指令用于执行程序跳转操作；BL指令在执行跳转操作的同时，保存子程序的返回地址；BX指令在执行跳转操作的同时，根据目标地址的最低位可以将程序状态切换到<code>Thumb</code>状态；<code>BLX</code>指令执行三个操作：跳转到目标地址处执行，保存子程序返回地址，根据目标地址最低位可以将程序状态切换到<code>Thumb</code>状态。</p>
-<p>（3）当中断发生时，系统执行完当前指令后，将跳转到相应的中断处理程序处执行。</p>
-<ol start="5">
-<li><strong>指令流水线</strong></li>
-</ol>
-<p>（1）为提高处理器执行指令的效率，把一条指令的操作分成多个细小的步骤，每个步骤由专门的电路完成。</p>
-<p>（2）三级流水线：分成取指令、译码、执行三个阶段，当在执行一条指令的时候，下一条指令已经在译码了，下下条指令已经在取指令了。PC记录的是取指令的指令地址。</p>
-
-      </div>
-      <div class="post-tags-categories">
-        
-        <div class="tags">
-          
-            <a href="/tags/ARM/" class="">
-              ARM
-            </a>
-          
-            <a href="/tags/%E4%B8%AD%E6%96%AD/" class="">
-              中断
-            </a>
-          
-        </div>
-        
-      </div>
-      
-        <div class="copyright">
-  <ul class="post-copyright">
-    <li class="post-copyright-author">
-    <strong>作者:  </strong>Heliosk</a>
-    </li>
-    <li class="post-copyright-link">
-    <strong>文章链接:  </strong>
-    <a href="/2024/02/29/ARM中断知识点小记/" target="_blank" title="ARM中断知识点小记">http://example.com/2024/02/29/ARM中断知识点小记/</a>
-    </li>
-    <li class="post-copyright-license">
-      <strong>版权声明:   </strong>
-      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
-      许可协议。转载请注明出处!
-    </li>
-  </ul>
-<div>
-      
-    </article>
-    <!-- 上一篇文章和下一篇文章 -->
-    
-      <!-- 文章详情页的上一页和下一页 -->
-<div class="post-nav">
-
-
-
-  
-  <div class="post-nav-prev post-nav-item">
-    <div class="post-nav-img" style="background-size: cover; 
-      background-position: center center;">
-      <img class="lazyload lazyload placeholder" src="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
-    </div>
-    <a href="/2024/03/01/Cmake%E7%AE%80%E5%8D%95%E6%95%99%E7%A8%8B-%E4%BB%A5HelloWorld%E4%B8%BA%E4%BE%8B/" class="post-nav-link">
-      <div class="title">
-        <i class="fas fa-angle-left"></i> 上一篇:
-        <div class="title-text">Cmake简单教程--以HelloWorld为例</div>
-      </div>
-      
-      <!-- <div class="content">
-        CMake说明cmake的定义是什么 ？—–高级编译配置工具
-当多个人用不同的语言或者编译器开发一个项目，最终要输出一个
-      </div> -->
-    </a>
-  </div>
-
-
-
-  
-  <div class="post-nav-next post-nav-item">
-    <div class="post-nav-img" style="background-size: cover; 
-      background-position: center center;">
-      <img class="lazyload lazyload placeholder" src="https://pic4.zhimg.com/80/v2-e434e3a2888fb4efb1844845b8791d1f_1440w.webp" class="lazyload placeholder" data-srcset="https://pic4.zhimg.com/80/v2-e434e3a2888fb4efb1844845b8791d1f_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" src="" alt="">
-    </div>
-    <a href="/2024/02/28/DMA%E7%AE%80%E8%A6%81%E4%BB%8B%E7%BB%8D/" class="post-nav-link">
-      <div class="title">
-        下一篇: <i class="fas fa-angle-right"></i>
-        <div class="title-text">DMA简要介绍</div>
-      </div>
-      <!-- <div class="content">
-        DMADMA的数据转运可以从外设到存储器，也可以是从存储器到外设，也可以从存储器转运到存储器；转运的次数由传输计数器控制
-      </div> -->
-    </a>
-  </div>
-
-</div>
-
-    
-    
-
-    <!-- 打赏 -->
-    
-      <div id="appDonate" class="post-donate">
-  <div id="donate_board" class="donate_bar center" ref="donate">
-    <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏" @click="showDialogDrawer()"></a>
-  </div>
-  <transition name="fade">
-    <div 
-      class="donate-box-mask"
-      v-cloak 
-      v-show="visible"
-      @click="cancelDialogDrawer()"
-    >
-    </div>
-  </transition>
-  <transition name="bounce">
-    <div class="donate-box" v-cloak v-show="visible">
-      <div class="donate-box_close">
-        <i class="fas fa-times" aria-hidden="true" @click="cancelDialogDrawer" pointer></i>
-      </div>
-      <div class="donate-box_title">
-        <h4>
-          您的赞赏是我前进的动力
-        </h4>
-      </div>
-      <div class="donate-box_tab">
-        <div class="Alipay" pointer :class="{'active': tabActive === 'Alipay'}" @click="changeTabActive('Alipay')">
-          支付宝
-        </div>
-        <div class="WeChatpay" pointer :class="{'active': tabActive === 'WeChatpay'}" @click="changeTabActive('WeChatpay')">
-          微信
-        </div>
-      </div>
-      <div class="donate-box_img">
-        <div class="AlipayImg" v-show="tabActive === 'Alipay'">
-          <img src="https://obsidian-1321096939.cos.ap-beijing.myqcloud.com/blogImgs/zfbshoukuan.jpg" class="lazyload placeholder" data-srcset="https://obsidian-1321096939.cos.ap-beijing.myqcloud.com/blogImgs/zfbshoukuan.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="支付宝打赏" />
-        </div> 
-        <div class="WeChatpayImg" v-show="tabActive === 'WeChatpay'">
-          <img src="https://obsidian-1321096939.cos.ap-beijing.myqcloud.com/blogImgs/wxshoukuan.png" class="lazyload placeholder" data-srcset="https://obsidian-1321096939.cos.ap-beijing.myqcloud.com/blogImgs/wxshoukuan.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="微信打赏" />
-        </div>
-      </div>
-    </div>
-  </transition>
-</div>
-
-<script>
-  var body = document.body || document.documentElement || window;
-  var vm = new Vue({
-    el: '#appDonate',
-    data: {
-      visible: false,
-      tabActive: 'Alipay',
-      top: 0,
-    },
-    computed: {
-    },
-    mounted() {
-    },
-    methods: {
-      showDialogDrawer() {
-        this.visible = true;
-        // 防止页面滚动，只能让弹框滚动
-        // function getScroll() {
-        //   return {
-        //     left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
-        //     top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-        //   };
-        // }
-        this.top = $(document).scrollTop() // or getScroll().top
-        // console.log('aa', $('.main-content'));
-        body.style.cssText = 'overflow: hidden;';
-      },
-      cancelDialogDrawer() {
-        this.visible = false;
-        body.removeAttribute('style');
-        $(document).scrollTop(this.top)
-      },
-      changeTabActive(name) {
-        this.tabActive = name;
-      }
-    },
-    created() {}
-  })
-</script>
-    
-
-    <!-- 分享 -->
-    
-      <!-- https://github.com/overtrue/share.js -->
-<!-- 文章详情页的分享 -->
-<div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
-
-<script defer src="/js/shareJs/social-share.min.js"></script>
-</script>
-
-<style>
-  .social-share {
-    margin: 20px 0;
+    <span class="title" id="tag-header-desc"></span>
+    <script>
+  function typedFn() {
+    const el = '#tag-header-desc';
+    const type = 'tagDetail';
+    let desc = ''
+    var typed = new Typed(el, {
+      strings: [desc],
+      startDelay: 100,
+      typeSpeed: 100,
+      loop: true,
+      backSpeed: 50,
+      showCursor: true
+    });
   }
-</style>
-
-
-    
-    
-    <!-- 评论 -->
-    <!-- 评论 -->
-
-  <div id="myComment">
-    
-      <div id="gitment-container"></div>
-
+  typedFn();
+</script>
     
   </div>
+  <div class="mask-box"></div>
+</div>
 
 
-<!-- 还需要在后面这个地址里设置script, comment script in themes\hexo-theme-bamboo\layout\_partial\scripts\index.ejs -->
 
-
+<div class="tag">
+  <div class="tag-name">
+    <div class="name" style="background-color: #85C1E9;">Cmake 分类</div>
   </div>
+  <!-- 每一篇文章卡片 -->
+  <!-- hash算法 -->
 
-  <!-- 目录 -->
-  <aside id='l_side'>
+<section class="posts">
   
     
-      <section class="widget side_blogger">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box rectangle' href='/about/'>
-          <img src='https://pic2.zhimg.com/80/v2-42b72d5ebee4b8d8aa70d9687effe87b_1440w.webp'/>
+    <article class="post reveal" style="flex-direction: row-reverse;   ">
+      <div class="post-main">
+        <div class="post-info">
+          <div class="post-time">
+            <i class="fas fa-clock" aria-hidden="true"></i>
+            <span class="post-time">2024-03-01</span>
+          </div>
+          <div class="post-title">
+            <a class="post-title-link" href="/2024/03/01/Cmake%E7%AE%80%E5%8D%95%E6%95%99%E7%A8%8B-%E4%BB%A5HelloWorld%E4%B8%BA%E4%BE%8B/">Cmake简单教程--以HelloWorld为例</a>
+          </div>
+          <div class="post-meta">
+            <div class="post-tags">
+              <!-- 文章详情页的标签 -->
+
+    <i class="iconfont icontag"></i>
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cmake/" rel="tag">Cmake</a></li></ul>
+
+            </div>
+            <div class="post-categories">
+              <!-- 文章详情页的分类 -->
+
+<div class="article-category">
+  <i class="iconfont iconbookmark1"></i>
+  <a class="article-category-link" href="/categories/Cmake/">Cmake</a>
+</div>
+
+
+            </div>
+          </div>
+          <div class="post-img-mobile">
+            <a href="/2024/03/01/Cmake%E7%AE%80%E5%8D%95%E6%95%99%E7%A8%8B-%E4%BB%A5HelloWorld%E4%B8%BA%E4%BE%8B/" style="background-size: cover; 
+              background-position: center center;">
+              <img class="lazyload lazyload placeholder" src="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+            </a>
+          </div>
+          <div class="post-content">
+            CMake说明cmake的定义是什么 ？—–高级编译配置工具
+当多个人用不同的语言或者编译器开发一个项目，最终要输出一个可执行文件或者共享库（dll，so等等）这时候神器就出现了—–CMake！
+所有操作都是通过编译CMakeLists.t
+          </div>
+        </div>
+        <div class="post-more">
+          <a href="/2024/03/01/Cmake%E7%AE%80%E5%8D%95%E6%95%99%E7%A8%8B-%E4%BB%A5HelloWorld%E4%B8%BA%E4%BE%8B/">
+            <i class="iconfont iconmore" pointer style="float: right;  " title="阅读更多"></i>
+          </a>
+        </div>
+      </div>
+      <div class="post-img">
+        <a href="/2024/03/01/Cmake%E7%AE%80%E5%8D%95%E6%95%99%E7%A8%8B-%E4%BB%A5HelloWorld%E4%B8%BA%E4%BE%8B/" style="background-size: cover; 
+          background-position: center center;">
+          <img class="lazyload lazyload placeholder" src="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
         </a>
-      
-    
-    
-      <div class='text'>
-        
-          <h2>Heliosk</h2>
-        
-        
-          <p>我是副标题</p>
-
-        
-        
-          <p><span id="jinrishici-sentence">码到成功</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
       </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="mailto:me@xxx.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/yuang01/hexo-theme-bamboo"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=你的qq号码"
-              class="social fab fa-qq flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
+    </article>
+  
 </section>
-
-    
-  
-  
-  
-    
-  
-
-  <div class="layout_sticky">    
-    
-      
-<section class="widget side_toc">
-  
-  <header>
-    
-      <i style="color: " class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name' style="color: ">本文目录</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <div class="toc-main">
-      <div class="toc-content">
-        <!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ARM%E4%B8%AD%E6%96%AD%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9%E5%B0%8F%E8%AE%B0"><span class="toc-text">ARM中断相关知识点小记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ARM%E4%BD%93%E7%B3%BB%E4%B8%AD%E7%9A%84%E4%B8%AD%E6%96%AD%E7%B1%BB%E5%9E%8B"><span class="toc-text">ARM体系中的中断类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E4%BD%8D"><span class="toc-text">复位</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4"><span class="toc-text">未定义指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AF%E4%B8%AD%E6%96%AD"><span class="toc-text">软中断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E9%A2%84%E5%8F%96%E4%B8%AD%E6%AD%A2"><span class="toc-text">指令预取中止</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E4%B8%AD%E6%AD%A2"><span class="toc-text">数据访问中止</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E4%B8%AD%E6%96%AD%E8%AF%B7%E6%B1%82%EF%BC%88IRQ%EF%BC%89"><span class="toc-text">外部中断请求（IRQ）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E4%B8%AD%E6%96%AD%E8%AF%B7%E6%B1%82%EF%BC%88FIQ%EF%BC%89"><span class="toc-text">快速中断请求（FIQ）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E5%90%91%E9%87%8F%E8%A1%A8%E3%80%81%E4%B8%AD%E6%96%AD%E4%BC%98%E5%85%88%E7%BA%A7%E3%80%81%E4%B8%AD%E6%96%AD%E6%A8%A1%E5%BC%8F%E3%80%81%E7%89%A9%E7%90%86%E5%AF%84%E5%AD%98%E5%99%A8%E7%BB%84"><span class="toc-text">中断向量表、中断优先级、中断模式、物理寄存器组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E5%90%91%E9%87%8F%E8%A1%A8"><span class="toc-text">中断向量表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-text">中断优先级</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E5%90%91%E9%87%8F-%E4%B8%AD%E6%96%AD%E6%A8%A1%E5%BC%8F-%E4%B8%AD%E6%96%AD%E4%BC%98%E5%85%88%E7%BA%A7%E8%A1%A8"><span class="toc-text">中断向量&amp;中断模式&amp;中断优先级表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%84%E7%A7%8D%E4%B8%8D%E5%90%8C%E7%9A%84%E5%A4%84%E7%90%86%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%AF%B9%E5%BA%94%E7%9A%84%E7%89%A9%E7%90%86%E5%AF%84%E5%AD%98%E5%99%A8%E7%BB%84"><span class="toc-text">各种不同的处理器模式对应的物理寄存器组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text"></span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E5%85%A5%E5%92%8C%E9%80%80%E5%87%BA%E4%B8%AD%E6%96%AD%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-text">进入和退出中断的过程</span></a></li></ol></li></ol> -->
-        <div class="toc"></div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- 手机端目录按钮 -->
-<div id="toc-mobile-btn">
-  <i class="fas fa-list-ul" aria-hidden="true"></i>
 </div>
 
-      
-  <section class="widget side_recent_post">
-    
-  <header>
-    
-      <a style="color: " href='/tags/'><i class="fas fa-book fa-fw" aria-hidden="true"></i><span class='name'>最新文章</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      
-      <!-- hash算法 -->
-      
-      <div class="aside-list">
-        
-          <div class="aside-list-item">
-            
-            
-            
-
-            <div class="post-img-box">
-              <a href="/2024/03/01/Cmake%E7%AE%80%E5%8D%95%E6%95%99%E7%A8%8B-%E4%BB%A5HelloWorld%E4%B8%BA%E4%BE%8B/" class="post-img " style="background-size: cover; 
-                background-position: center center;">
-                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
-              </a>
-            </div>
-            <div class="post-date-title">
-              <div>
-                
-                  <span class="post-date">03-01</span>
-                
-              </div>
-              <a class="post-title" href="/2024/03/01/Cmake%E7%AE%80%E5%8D%95%E6%95%99%E7%A8%8B-%E4%BB%A5HelloWorld%E4%B8%BA%E4%BE%8B/">Cmake简单教程--以HelloWorld为例</a>
-            </div>
-          </div>
-        
-          <div class="aside-list-item">
-            
-            
-            
-
-            <div class="post-img-box">
-              <a href="/2024/02/29/ARM%E4%B8%AD%E6%96%AD%E7%9F%A5%E8%AF%86%E7%82%B9%E5%B0%8F%E8%AE%B0/" class="post-img " style="background-size: cover; 
-                background-position: center center;">
-                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic1.zhimg.com/80/v2-03a22891ccba9bccf6424dfd7cbf4be7_1440w.webp" class="lazyload placeholder" data-srcset="https://pic1.zhimg.com/80/v2-03a22891ccba9bccf6424dfd7cbf4be7_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
-              </a>
-            </div>
-            <div class="post-date-title">
-              <div>
-                
-                  <span class="post-date">02-29</span>
-                
-              </div>
-              <a class="post-title" href="/2024/02/29/ARM%E4%B8%AD%E6%96%AD%E7%9F%A5%E8%AF%86%E7%82%B9%E5%B0%8F%E8%AE%B0/">ARM中断知识点小记</a>
-            </div>
-          </div>
-        
-          <div class="aside-list-item">
-            
-            
-            
-
-            <div class="post-img-box">
-              <a href="/2024/02/28/DMA%E7%AE%80%E8%A6%81%E4%BB%8B%E7%BB%8D/" class="post-img " style="background-size: cover; 
-                background-position: center center;">
-                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic4.zhimg.com/80/v2-e434e3a2888fb4efb1844845b8791d1f_1440w.webp" class="lazyload placeholder" data-srcset="https://pic4.zhimg.com/80/v2-e434e3a2888fb4efb1844845b8791d1f_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
-              </a>
-            </div>
-            <div class="post-date-title">
-              <div>
-                
-                  <span class="post-date">02-28</span>
-                
-              </div>
-              <a class="post-title" href="/2024/02/28/DMA%E7%AE%80%E8%A6%81%E4%BB%8B%E7%BB%8D/">DMA简要介绍</a>
-            </div>
-          </div>
-        
-          <div class="aside-list-item">
-            
-            
-            
-
-            <div class="post-img-box">
-              <a href="/2024/02/28/ADC%E6%A8%A1%E6%95%B0%E8%BD%AC%E6%8D%A2%E5%99%A8%E7%AE%80%E8%A6%81%E4%BB%8B%E7%BB%8D/" class="post-img " style="background-size: cover; 
-                background-position: center center;">
-                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
-              </a>
-            </div>
-            <div class="post-date-title">
-              <div>
-                
-                  <span class="post-date">02-28</span>
-                
-              </div>
-              <a class="post-title" href="/2024/02/28/ADC%E6%A8%A1%E6%95%B0%E8%BD%AC%E6%8D%A2%E5%99%A8%E7%AE%80%E8%A6%81%E4%BB%8B%E7%BB%8D/">ADC模数转换器简要介绍</a>
-            </div>
-          </div>
-        
-          <div class="aside-list-item">
-            
-            
-            
-
-            <div class="post-img-box">
-              <a href="/2024/02/28/PWM%E7%AE%80%E8%A6%81%E4%BB%8B%E7%BB%8D/" class="post-img " style="background-size: cover; 
-                background-position: center center;">
-                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
-              </a>
-            </div>
-            <div class="post-date-title">
-              <div>
-                
-                  <span class="post-date">02-28</span>
-                
-              </div>
-              <a class="post-title" href="/2024/02/28/PWM%E7%AE%80%E8%A6%81%E4%BB%8B%E7%BB%8D/">PWM简要介绍</a>
-            </div>
-          </div>
-        
-      </div>
-    </div>
-  </section>
-
-    
-  </div>
-</aside>
-
-  <!-- 图片放大 Wrap images with fancybox support -->
-  <script defer src="/js/wrapImage.js"></script>
-</div>
-
-<!-- 文章详情页背景图 -->
-<div id="appBgSwiper" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"
-	:style="{'background-color': bgColor ? bgColor : 'transparent'}">
-	<transition-group tag="ul" :name="names">
-		<li v-for='(image,index) in img' :key='index' v-show="index === mark" class="bg-swiper-box">
-			<img :src="image" class="bg-swiper-img no-lazy">
-		</li>
-	</transition-group>
-</div>
-<script>
-	var vm = new Vue({
-		el: '#appBgSwiper',
-		data: {
-			names: '' || 'fade' || 'fade', // translate-fade fade
-			mark: 0,
-			img: [],
-			bgColor: '',
-			time: null
-		},
-		methods: {   //添加方法
-			change(i, m) {
-				if (i > m) {
-					// this.names = 'fade';
-				} else if (i < m) {
-					// this.names = 'fade';
-				} else {
-					return;
-				}
-				this.mark = i;
-			},
-			prev() {
-				// this.names = 'fade';
-				this.mark--;
-				if (this.mark === -1) {
-					this.mark = 3;
-					return
-				}
-			},
-			next() {
-				// this.names = 'fade';
-				this.mark++;
-				if (this.mark === this.img.length) {
-					this.mark = 0;
-					return
-				}
-			},
-			autoPlay() {
-				// this.names = 'fade';
-				this.mark++;
-				if (this.mark === this.img.length) {
-					this.mark = 0;
-					return
-				}
-			},
-			play() {
-				let bgImgDelay = '' || '180000'
-				let delay = parseInt(bgImgDelay) || 180000;
-				this.time = setInterval(this.autoPlay, delay);
-			},
-			enter() {
-				clearInterval(this.time);
-			},
-			leave() {
-				this.play();
-			}
-		},
-		created() {
-			this.play()
-		},
-		beforeDestroy() {
-			clearInterval(this.time);
-		},
-		mounted() {
-			let prop = '' || '';
-			let isImg = prop.includes('.bmp') || prop.includes('.jpg') || prop.includes('.png') || prop.includes('.tif') || prop.includes('.gif') || prop.includes('.pcx') || prop.includes('.tga') || prop.includes('.exif') || prop.includes('.fpx') || prop.includes('.psd') || prop.includes('.cdr') || prop.includes('.pcd') || prop.includes('.dxf') || prop.includes('.ufo') || prop.includes('.eps') || prop.includes('.ai') || prop.includes('.raw') || prop.includes('.WMF') || prop.includes('.webp') || prop.includes('.jpeg') || prop.includes('http://') || prop.includes('https://')
-			if (isImg) {
-				let img = prop.split(',');
-				let configRoot = '/'
-				let arrImg = [];
-				img.forEach(el => {
-					var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
-					var objExp = new RegExp(Expression);
-
-					if (objExp.test(el)) {
-						// http or https
-						arrImg.push(el);
-					} else {
-						// 非http or https开头
-						// 本地文件
-						let firstStr = el.charAt(0);
-						if (firstStr == '/') {
-							el = el.substr(1); // 删除第一个字符 '/',因为 configRoot最后一个字符为 /
-						}
-						el = configRoot + el;
-						arrImg.push(el);
-					}
-				})
-				this.img = arrImg;
-			} else {
-				this.bgColor = prop;
-			}
-		}
-	})
-</script>
-
-<style>
-	.bg-swiper-box {
-		position: absolute;
-		display: block;
-		width: 100%;
-		height: 100%;
-	}
-
-	.bg-swiper-img {
-		object-fit: cover;
-		width: 100%;
-		height: 100%;
-	}
-</style>
-
-
-
-
-  <script>
-  function loadMermaid() {
-    if (document.getElementsByClassName('mermaid').length) {
-      if (window.mermaidJsLoad) mermaid.init()
-      else {
-        loadScript('https://unpkg.com/mermaid/dist/mermaid.min.js').then(() => {
-          window.mermaidJsLoad = true
-          mermaid.initialize({
-            theme: 'default',
-          })
-          if ('true') {
-            mermaid.init();
-          }
-        })
-      }
-    }
-  };
-  document.addEventListener("DOMContentLoaded", function () {
-    loadMermaid();
-  })
-
-  document.addEventListener('pjax:complete', function () {
-    loadMermaid();
-  })
+<div class="w-70">
   
-</script>
-
+</div>
 
       </main>
     </div>
