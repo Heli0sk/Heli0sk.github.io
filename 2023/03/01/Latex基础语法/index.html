@@ -11,7 +11,7 @@
   <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-  <title>Hello World | 码到成功</title>
+  <title>Latex基础语法 | 码到成功</title>
 
   <link rel="icon" type="image/png" href="/coding.png">
   <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
@@ -572,34 +572,43 @@
 
 
 <div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
-  background-position: center center;position: relative;background-image:url('https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp')">
+  background-position: center center;position: relative;background-image:url('https://pic1.zhimg.com/80/v2-03a22891ccba9bccf6424dfd7cbf4be7_1440w.webp')">
   <div class="post-detail-header-mask"></div>
   <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
   
   <div class="post-detail-header_info-box">
     <div class="title-box">
       <span class="title">
-        Hello World
+        Latex基础语法
       </span>
     </div>
     
     
       
         <span class="post-detail-header_date">
-          <i class="fas fa-calendar"></i> 发表于：2024-02-20 |
+          <i class="fas fa-calendar"></i> 发表于：2023-03-01 |
         </span>
       
 
+      
+        <span class="post-detail-header_categories">
+          <i class="iconfont iconbookmark1"></i> 分类：
+          
+            <a href="/categories/Latex/" class="post-detail-header_category">
+              Latex
+            </a>
+          
+        </span>
       
 
       
         <div class="post-detail-header_wordcount">
           <span class="totalcount">
-            <i class="fas fa-file-text-o"></i> 字数统计: 75 |
+            <i class="fas fa-file-text-o"></i> 字数统计: 2.8k |
           </span>
   
           <span class="min2read">
-            <i class="fas fa-clock"></i> 阅读时长: 1分钟 |
+            <i class="fas fa-clock"></i> 阅读时长: 12分钟 |
           </span>
   
           
@@ -626,22 +635,275 @@
   <div class="main-content">
     <article class="post post-detail">
       <div class="post-content">
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+        <p>在<code>begin&#123;document&#125;</code>和<code>end&#123;document&#125;</code>之间的就是正文区，而在这之前的就是导言区。</p>
+<h2 id="宏包导入"><a href="#宏包导入" class="headerlink" title="宏包导入"></a>宏包导入</h2><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">\usepackage</span>&#123;宏包1, 宏包2&#125;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<h2 id="中文支持"><a href="#中文支持" class="headerlink" title="中文支持"></a>中文支持</h2><p>无论是在线工具还是本地工具，LaTeX默认都是不支持中文的，因此需要在源代码和配置上稍作修改才可以让LaTeX支持中文，步骤如下：</p>
+<ol>
+<li>编译器配置：<code>XeLaTeX</code></li>
+<li><code>tex</code>文件编码：<code>utf-8</code></li>
+<li>代码开头添加</li>
+</ol>
+<p>方式一：添加宏包</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% -- coding: UTF-8 --</span></span><br><span class="line"><span class="keyword">\documentclass</span>&#123;article&#125; <span class="comment">% 在文件类型下面添加宏包</span></span><br><span class="line"><span class="keyword">\usepackage</span>[UTF8]&#123;ctex&#125;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+<p>方式二：设置文档类型</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% -- coding: UTF-8 --</span></span><br><span class="line"><span class="keyword">\documentclass</span>[UTF8]&#123;ctexart&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><ul>
+<li>单行注释 </li>
+<li>多行注释 <ul>
+<li>方式一（推荐） </li>
+<li>方式二</li>
+</ul>
+</li>
+</ul>
+<p>使用<code>\usepackage&#123;verbatim&#125;</code>宏包 </p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">\begin</span>&#123;comment&#125;</span><br><span class="line">注释内容</span><br><span class="line"><span class="keyword">\end</span>&#123;comment&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h2><p>可以使用<code>\</code>来转义一些特殊字符，如<code>\%</code>，<code>\_</code></p>
+<h2 id="首行缩进"><a href="#首行缩进" class="headerlink" title="首行缩进"></a>首行缩进</h2><ul>
+<li>缩进</li>
+</ul>
+<p>进行缩进若LaTeX默认没有段首缩进，因此要首行缩进需要进行修改。在导言区加入如下代码（距离单位一般为<code>pt</code>或<code>em</code>，<code>pt</code>是绝对单位；<code>em</code>是相对单位，表示1个中文字符宽度）</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 使用indentfirst宏包</span></span><br><span class="line"><span class="keyword">\usepackage</span>&#123;indentfirst&#125;</span><br><span class="line"><span class="comment">% 设置首行缩进距离</span></span><br><span class="line"><span class="keyword">\setlength</span>&#123;<span class="keyword">\parindent</span>&#125;&#123;2em&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>不进行缩进</li>
+</ul>
+<ol>
+<li>方式1（推荐）： 单段取消缩进，放在段首即可。 </li>
+<li>方式2： 全局取消缩进，在想缩进的段落再进行缩进。</li>
+</ol>
+<p>放在导言区：</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">\setlength</span>&#123;<span class="keyword">\parindent</span>&#125;&#123;0pt&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>放在想要缩进的段落：</p>
+<h2 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h2><table>
+<thead>
+<tr>
+<th>源码</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>\\\\</code></td>
+<td>一般在一行的最后一行写</td>
+</tr>
+<tr>
+<td><code>\\\\[offset]</code></td>
+<td>换行，并且与下一行的行间距为原来行间距+offset，offset单位一般是<code>em</code><br />或<code>pt</code></td>
+</tr>
+</tbody></table>
+<h2 id="更换段落"><a href="#更换段落" class="headerlink" title="更换段落"></a>更换段落</h2><table>
+<thead>
+<tr>
+<th>源码</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>无</td>
+<td>源代码空一行即可进行换段</td>
+</tr>
+<tr>
+<td><code>\\par</code></td>
+<td>一般在一段的最后写</td>
+</tr>
+</tbody></table>
+<h2 id="页面更换"><a href="#页面更换" class="headerlink" title="页面更换"></a>页面更换</h2><p><code>\newpage</code>进行换页</p>
+<h2 id="纸张设置"><a href="#纸张设置" class="headerlink" title="纸张设置"></a>纸张设置</h2><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 设置页面的环境,a4纸张大小，左右上下边距信息</span></span><br><span class="line"><span class="keyword">\usepackage</span>[a4paper,left=30mm,right=25mm,top=25mm,bottom=25mm]&#123;geometry&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="标题分级"><a href="#标题分级" class="headerlink" title="标题分级"></a>标题分级</h2><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">\section</span>&#123;一级标题&#125;</span><br><span class="line"><span class="keyword">\subsection</span>&#123;二级标题&#125; </span><br><span class="line"><span class="keyword">\subsubsection</span>&#123;二级标题&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="使用模板"><a href="#使用模板" class="headerlink" title="使用模板"></a>使用模板</h2><h2 id="单双栏模式"><a href="#单双栏模式" class="headerlink" title="单双栏模式"></a>单双栏模式</h2><ul>
+<li>单栏</li>
+</ul>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">\documentclass</span>[onecolumn]&#123;article&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>双栏</li>
+</ul>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">\documentclass</span>[twocolumn]&#123;article&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="空格"><a href="#空格" class="headerlink" title="空格"></a>空格</h2><p>源码：<code>a \quad b</code>，显示：<code>a b</code>，宽度为1个中文字符宽度</p>
+<p>源码：<code>a \qquad b</code>，显示：<code>a b</code>，宽度为2个中文字符宽度</p>
+<p>源码：<code>a\ b</code>，显示：<code>a b</code>，宽度为13\frac{1}{3}个字符宽度</p>
+<h2 id="标题、作者与日期"><a href="#标题、作者与日期" class="headerlink" title="标题、作者与日期"></a>标题、作者与日期</h2><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">\documentclass</span>&#123;article&#125; <span class="comment">% article 文档</span></span><br><span class="line"><span class="keyword">\usepackage</span>[UTF8]&#123;ctex&#125;  <span class="comment">% 使用宏包(为了能够显示汉字)</span></span><br><span class="line"><span class="comment">% 设置页面的环境,a4纸张大小，左右上下边距信息</span></span><br><span class="line"><span class="keyword">\usepackage</span>[a4paper,left=30mm,right=25mm,top=25mm,bottom=25mm]&#123;geometry&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\title</span>&#123;行码棋的文章&#125;  <span class="comment">% 文章标题</span></span><br><span class="line"><span class="keyword">\author</span>&#123;行码棋&#125;   <span class="comment">% 作者的名称</span></span><br><span class="line"><span class="keyword">\date</span>&#123;<span class="keyword">\today</span>&#125;       <span class="comment">% 当天日期</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 正文开始</span></span><br><span class="line"><span class="keyword">\begin</span>&#123;document&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\maketitle</span>          <span class="comment">% 添加这一句才能够显示标题等信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 正文结束</span></span><br><span class="line"><span class="keyword">\end</span>&#123;document&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>在<code>\maketitle</code>下添加内容</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">\maketitle</span>          <span class="comment">%添加这一句才能够显示标题等信息</span></span><br><span class="line"><span class="comment">%摘要开始部分</span></span><br><span class="line"><span class="keyword">\begin</span>&#123;abstract&#125;</span><br><span class="line">该部分内容是放置摘要信息的。该部分内容是放置摘要信息的。该部分内容是放置摘要信息的。该部分内容是放置摘要信息的。该部分内容是放置摘要信息的。</span><br><span class="line"><span class="keyword">\end</span>&#123;abstract&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="引用、脚注"><a href="#引用、脚注" class="headerlink" title="引用、脚注"></a>引用、脚注</h2><ul>
+<li>引用：写在<code>\begin&#123;quote&#125;</code>和<code>\end&#123;quote&#125;</code>之间</li>
+</ul>
+<h3 id="4-1-公式引用"><a href="#4-1-公式引用" class="headerlink" title="4.1 公式引用"></a>4.1 公式引用</h3><p>需导入<code>amsmath</code>宏包，代码为<code>\usepackage&#123;amsmath&#125;</code></p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">\begin</span>&#123;equation&#125;</span><br><span class="line">z = x + y</span><br><span class="line"><span class="keyword">\label</span>&#123;eq1&#125;</span><br><span class="line"><span class="keyword">\end</span>&#123;equation&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>公式引用：</p>
+<p>引用时只显示数字</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Eq. (<span class="keyword">\ref</span>&#123;eq1&#125;)</span><br><span class="line"><span class="comment">% 或导入amsmath宏包，使用如下代码（推荐）：</span></span><br><span class="line">Eq. <span class="keyword">\eqref</span>&#123;eq1&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="图片引用"><a href="#图片引用" class="headerlink" title="图片引用"></a>图片引用</h3><p>图片显示：</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">\begin</span>&#123;figure&#125;[htbp] <span class="comment">% htbp代表图片插入位置的设置</span></span><br><span class="line"><span class="keyword">\centering</span> <span class="comment">%图片居中</span></span><br><span class="line"><span class="keyword">\includegraphics</span>[width=6cm]&#123;1.jpg&#125;</span><br><span class="line"><span class="keyword">\caption</span>&#123;这是一个图片标题&#125; <span class="comment">% 图片标题</span></span><br><span class="line"><span class="keyword">\label</span>&#123;pic&#125; <span class="comment">% 图片标签</span></span><br><span class="line"><span class="keyword">\end</span>&#123;figure&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>引用：<code>pic</code>是图片的label</p>
+<p>引用时只显示数字</p>
+<h3 id="参考文献引用"><a href="#参考文献引用" class="headerlink" title="参考文献引用"></a>参考文献引用</h3><p>下面的代码在文中使用，用于标注引用了哪篇文献</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">\cite</span>&#123;b1&#125;</span><br><span class="line"><span class="keyword">\cite</span>&#123;b2&#125;</span><br><span class="line"><span class="keyword">\cite</span>&#123;b3&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>下面代码一般在文末使用，会列举自己使用的参考文献</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">\begin</span>&#123;thebibliography&#125;&#123;00&#125;</span><br><span class="line"><span class="keyword">\bibitem</span>&#123;b1&#125; Ben-Othman J, Yahya B. Energy efficient and QoS based routing protocol for wireless sensor networks. J Parallel Distrib Comput 2010;2010(70):849–57.</span><br><span class="line"><span class="keyword">\bibitem</span>&#123;b2&#125; Younis M, Youssef M, Arisha K. Energy-aware routing in cluster-based sensor networks. In: Proceedings of the IEEE 20th international symposium on modeling, analysis and simulation of computer and telecommunication systems; 2012. p. 0129. https://doi.org/10.1109/MASCOT.2002.1167069.</span><br><span class="line"><span class="keyword">\bibitem</span>&#123;b3&#125; Al-Karaki JN, Kamal AE. Routing techniques in wireless sensor networks: a survey. IEEE J Wirel Commun 2004;11(6):6–28. 2004.</span><br><span class="line"><span class="keyword">\end</span>&#123;thebibliography&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="脚注"><a href="#脚注" class="headerlink" title="脚注"></a>脚注</h3><p>脚注：在需要添加脚注的文字后添加<code>\footnote&#123;脚注内容&#125;</code>即可，会自动标序号，并将<code>脚注内容</code>填上去</p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p>在<code>\begin&#123;document&#125;</code>内容中添加：<code>\tableofcontents</code></p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 生成目录设置</span></span><br><span class="line"><span class="keyword">\renewcommand</span>&#123;<span class="keyword">\contentsname</span>&#125;&#123;目录&#125; <span class="comment">%将content转为目录,生成目录二字</span></span><br><span class="line"><span class="keyword">\tableofcontents</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="字体、大小与颜色"><a href="#字体、大小与颜色" class="headerlink" title="字体、大小与颜色"></a>字体、大小与颜色</h2><ul>
+<li>字体</li>
+</ul>
+<p>使用<code>&#123;\字体 内容&#125;</code>（推荐此种），也可使用<code>\字体 &#123;内容&#125;</code></p>
+<p>示例：</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="keyword">\songti</span> 宋体&#125;</span><br><span class="line">&#123;<span class="keyword">\heiti</span> 黑体&#125;</span><br><span class="line">&#123;<span class="keyword">\fangsong</span> 仿宋&#125;</span><br><span class="line">&#123;<span class="keyword">\kaishu</span> 楷书&#125;</span><br><span class="line"></span><br><span class="line">&#123;<span class="keyword">\bf</span> 粗体&#125;</span><br><span class="line">&#123;<span class="keyword">\it</span> 斜体&#125;</span><br><span class="line">&#123;<span class="keyword">\sl</span> 斜体&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\textbf</span>&#123;粗体&#125;</span><br><span class="line"><span class="keyword">\textit</span>&#123;斜体&#125;</span><br><span class="line"><span class="keyword">\textsl</span>&#123;斜体&#125;</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>大小</li>
+</ul>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="keyword">\tiny</span> Hello&#125; <span class="keyword">\\</span></span><br><span class="line">&#123;<span class="keyword">\scriptsize</span> Hello&#125; <span class="keyword">\\</span></span><br><span class="line">&#123;<span class="keyword">\footnotesize</span> Hello&#125; <span class="keyword">\\</span></span><br><span class="line">&#123;<span class="keyword">\small</span> Hello&#125; <span class="keyword">\\</span></span><br><span class="line">&#123;<span class="keyword">\normalsize</span> Hello&#125; <span class="keyword">\\</span></span><br><span class="line">&#123;<span class="keyword">\large</span> Hello&#125; <span class="keyword">\\</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>颜色</li>
+</ul>
+<p>需要导入宏包<code>\usepackage&#123;xcolor&#125;</code></p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">\documentclass</span>&#123;article&#125;</span><br><span class="line"><span class="keyword">\usepackage</span>[UTF8]&#123;ctex&#125;</span><br><span class="line"><span class="keyword">\usepackage</span>&#123;color,xcolor&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\setlength</span>&#123;<span class="keyword">\parindent</span>&#125;&#123;0pt&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">% 预先定义好的颜色： red, green, blue, white, black, yellow, gray, darkgray, lightgray, brown, cyan, lime, magenta, olive, orange, pink, purple, teal, violet.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 定义颜色的5种方式</span></span><br><span class="line"><span class="keyword">\definecolor</span>&#123;light-gray&#125;&#123;gray&#125;&#123;0.95&#125;    <span class="comment">% 1.灰度</span></span><br><span class="line"><span class="keyword">\definecolor</span>&#123;orange&#125;&#123;rgb&#125;&#123;1,0.5,0&#125;      <span class="comment">% 2.rgb</span></span><br><span class="line"><span class="keyword">\definecolor</span>&#123;orange&#125;&#123;RGB&#125;&#123;255,127,0&#125;    <span class="comment">% 3.RGB</span></span><br><span class="line"><span class="keyword">\definecolor</span>&#123;orange&#125;&#123;HTML&#125;&#123;FF7F00&#125;      <span class="comment">% 4.HTML</span></span><br><span class="line"><span class="keyword">\definecolor</span>&#123;orange&#125;&#123;cmyk&#125;&#123;0,0.5,1,0&#125;   <span class="comment">% 5.cmyk</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">\begin</span>&#123;document&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">% \pagecolor&#123;yellow&#125;          %设置背景色为黄色</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 使用颜色的常用方式</span></span><br><span class="line"><span class="keyword">\textcolor</span>&#123;green&#125;&#123;绿色&#125; <span class="comment">% textcolor+颜色</span></span><br><span class="line"><span class="keyword">\color</span>&#123;orange&#125;&#123;橙色&#125; <span class="comment">% color+颜色</span></span><br><span class="line"><span class="keyword">\textcolor</span>[rgb]&#123;0,1,0&#125;&#123;绿色&#125; <span class="comment">% textcolor+rgb</span></span><br><span class="line"><span class="keyword">\color</span>[rgb]&#123;1,0,0&#125;&#123;红色&#125; <span class="comment">% color+rgb</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 使用底色</span></span><br><span class="line"><span class="keyword">\colorbox</span>&#123;red&#125;&#123;<span class="keyword">\color</span>&#123;black&#125;红底黑字&#125;</span><br><span class="line"><span class="keyword">\fcolorbox</span>&#123;red&#125;&#123;green&#125;&#123;红框绿底&#125; <span class="comment">% 框色+背景色</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">\end</span>&#123;document&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p>导入宏包：<code>\usepackage&#123;url&#125;</code></p>
+<p>插入超链接：<code>\url&#123;www.baidu.com&#125;</code></p>
+<h2 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h2><p>需要导入宏包：<code>\usepackage&#123;graphicx&#125;</code></p>
+<ul>
+<li>单张图片</li>
+</ul>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%开始插入图片</span></span><br><span class="line"><span class="keyword">\begin</span>&#123;figure&#125;[htbp] <span class="comment">% htbp代表图片插入位置的设置</span></span><br><span class="line"><span class="keyword">\centering</span> <span class="comment">%图片居中</span></span><br><span class="line"><span class="comment">%添加图片；[]中为可选参数，可以设置图片的宽高；&#123;&#125;中为图片的相对位置</span></span><br><span class="line"><span class="keyword">\includegraphics</span>[width=6cm]&#123;image.jpg&#125;</span><br><span class="line"><span class="keyword">\caption</span>&#123;这是一个图片标题&#125; <span class="comment">% 图片标题</span></span><br><span class="line"><span class="keyword">\label</span>&#123;pic1&#125; <span class="comment">% 图片标签</span></span><br><span class="line"><span class="keyword">\end</span>&#123;figure&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><code>[htbp]</code>是可选参数，允许用户指定图片、表格等元素被放置的位置。这一可选参数项可以是下列字母的任意组合。</p>
+<p><code>h(here)</code>: 当前位置；将图形放置在 正文文本中给出该图形环境的地方。如果本页所剩的页面不够， 这一参数将不起作用。</p>
+<p><code>t(top)</code>: 顶部；将图形放置在页面的顶部。</p>
+<p><code>b(bottom)</code>: 底部；将图形放置在页面的底部。</p>
+<p><code>p(page)</code>: 浮动页；将图形放置在一只允许有浮动对象的页面上。</p>
+<p>注：</p>
+<ul>
+<li>如果在图形环境中没有给出上述任一参数，则缺省为<code>[tbp]</code></li>
+<li>给出参数的顺序不会影响到最后的结果。因为在考虑这些参数时LaTeX总是尝试以<code>h-t-b-p</code> 的顺序来确定图形的位置。所以<code>[hb]</code>和<code>[bh]</code>都以<code>h-b</code>的顺序来排版</li>
+<li>给出的参数越多，LaTeX的排版结果就会越好。<code>[htbp]</code>， <code>[tbp]</code>， <code>[htp]</code>， <code>[tp]</code> 这些组合得到的效果不错，<code>[h]</code>也是常用的选择。</li>
+</ul>
+</blockquote>
+<ul>
+<li>并排插入多张图片</li>
+</ul>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">\begin</span>&#123;figure&#125;</span><br><span class="line"><span class="keyword">\centering</span></span><br><span class="line">&#123;<span class="keyword">\includegraphics</span>[width=2.5cm]&#123;1.jpg&#125;&#125;</span><br><span class="line"><span class="keyword">\hspace</span>&#123;10pt&#125;    <span class="comment">%每张图片水平距离</span></span><br><span class="line">&#123;<span class="keyword">\includegraphics</span>[width=2.5cm]&#123;1.jpg&#125;&#125;</span><br><span class="line"><span class="keyword">\hspace</span>&#123;10pt&#125;</span><br><span class="line">&#123;<span class="keyword">\includegraphics</span>[width=2.5cm]&#123;1.jpg&#125;&#125;</span><br><span class="line"><span class="keyword">\hspace</span>&#123;10pt&#125;</span><br><span class="line">&#123;<span class="keyword">\includegraphics</span>[width=2.5cm]&#123;1.jpg&#125;&#125;</span><br><span class="line"><span class="keyword">\hspace</span>&#123;10pt&#125;</span><br><span class="line"><span class="keyword">\caption</span>&#123;并排插入4张图片&#125; <span class="comment">%图片标题</span></span><br><span class="line"><span class="keyword">\end</span>&#123;figure&#125;</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>竖排插入多张图片</li>
+</ul>
+<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><p>在线生成Latex表格：<a target="_blank" rel="noopener" href="https://www.tablesgenerator.com/">https://www.tablesgenerator.com/</a></p>
+<h2 id="数学公式"><a href="#数学公式" class="headerlink" title="数学公式"></a>数学公式</h2><p>公式编写类似Katex，不再详细讲述，文档请参考： <a target="_blank" rel="noopener" href="https://katex.org/docs/supported.html">https://katex.org/docs/supported.html</a></p>
+<ul>
+<li>公式自动编号</li>
+</ul>
+<p>使用<code>\begin&#123;equation&#125;</code>和<code>\end&#123;equation&#125;</code>进行公式输入，要同时使用，且编号不能够修改。</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">\begin</span>&#123;equation&#125;</span><br><span class="line">a<span class="built_in">^</span>2+b<span class="built_in">^</span>2=c<span class="built_in">^</span>2</span><br><span class="line"><span class="keyword">\end</span>&#123;equation&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>公式手动编号</li>
+</ul>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">\begin</span>&#123;equation&#125;</span><br><span class="line">a<span class="built_in">^</span>2 + b<span class="built_in">^</span>2 = c<span class="built_in">^</span>2</span><br><span class="line"><span class="keyword">\tag</span>&#123;2&#125;</span><br><span class="line"><span class="keyword">\end</span>&#123;equation&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><ul>
+<li>算法伪代码</li>
+</ul>
+<p>需要使用<code>\usepackage&#123;algorithm&#125;</code>和<code>\usepackage&#123;algorithmic&#125;</code>宏包，<code>if</code>、<code>for</code>等关键字要按照规范书写，如<code>\IF \ENDIF</code>。</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">\documentclass</span>&#123;article&#125;</span><br><span class="line"><span class="keyword">\usepackage</span>[UTF8]&#123;ctex&#125;</span><br><span class="line"><span class="keyword">\usepackage</span>&#123;algorithm&#125; <span class="comment">% 排版算法</span></span><br><span class="line"><span class="keyword">\usepackage</span>&#123;algorithmic&#125; <span class="comment">% 排版算法</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">\title</span>&#123;Algorithm&#125;</span><br><span class="line"><span class="keyword">\author</span>&#123;NSJim Green&#125;</span><br><span class="line"><span class="keyword">\date</span>&#123;October 2020&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\begin</span>&#123;document&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\maketitle</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">\section</span>&#123;Algorithm 1&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\begin</span>&#123;algorithm&#125;</span><br><span class="line"><span class="keyword">\caption</span>&#123;CheckSum(A,x)&#125; <span class="comment">%算法标题</span></span><br><span class="line"><span class="keyword">\label</span>&#123;alg2&#125; <span class="comment">%标签</span></span><br><span class="line"><span class="keyword">\begin</span>&#123;algorithmic&#125; <span class="comment">%算法开始</span></span><br><span class="line"><span class="keyword">\STATE</span> &#123;<span class="keyword">\bf</span> Input:&#125; An array A and a value x  <span class="comment">%也可以用\textbf&#123;Input:&#125;</span></span><br><span class="line"><span class="keyword">\STATE</span> &#123;<span class="keyword">\bf</span> Output:&#125; A bool value show if there is two elements in A whose sum is x</span><br><span class="line"><span class="keyword">\STATE</span> A <span class="built_in">$</span><span class="keyword">\gets</span><span class="built_in">$</span> SORT(A)</span><br><span class="line"><span class="keyword">\STATE</span> n <span class="built_in">$</span><span class="keyword">\gets</span><span class="built_in">$</span> length(n)</span><br><span class="line"><span class="keyword">\FOR</span>&#123;i <span class="built_in">$</span><span class="keyword">\gets</span><span class="built_in">$</span> 0 to n&#125;</span><br><span class="line">    <span class="keyword">\IF</span>&#123;Binary-search(A,x-A[i],1,n)&#125;</span><br><span class="line">    <span class="keyword">\STATE</span> return true</span><br><span class="line">    <span class="keyword">\ENDIF</span></span><br><span class="line"><span class="keyword">\ENDFOR</span></span><br><span class="line"><span class="keyword">\STATE</span> return false</span><br><span class="line"><span class="keyword">\end</span>&#123;algorithmic&#125;</span><br><span class="line"><span class="keyword">\end</span>&#123;algorithm&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\end</span>&#123;document&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>代码块</li>
+</ul>
+<p>使用<code>\usepackage&#123;listings&#125;</code>宏包，并使用<code>\lstset&#123;&#125;</code>进行基础设置，然后使用<code>\begin&#123;lstlisting&#125;[language=xxx]</code>和<code>\end&#123;lstlisting&#125;</code>插入代码块。</p>
+<p>基础设置包括行号，不显示字符串空格，代码块边框，不包含颜色等设置，要设置颜色和字体请见下文的高级用法。</p>
+<p>进行代码基础设置：（写在导言区）</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 代码块基础设置</span></span><br><span class="line"><span class="keyword">\lstset</span>&#123;</span><br><span class="line">breaklines, <span class="comment">% 代码自动换行</span></span><br><span class="line">numbers=left,  	<span class="comment">% 在左侧显示行号</span></span><br><span class="line">showstringspaces=false,  <span class="comment">% 不显示字符串中的空格</span></span><br><span class="line">frame=single,  	<span class="comment">% 设置代码块边框</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>其他代码设置：</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 代码块高级设置</span></span><br><span class="line"><span class="keyword">\lstset</span>&#123;</span><br><span class="line"><span class="comment">% basicstyle=\footnotesize,                 % 设置整体的字体大小</span></span><br><span class="line">showstringspaces=false,                     <span class="comment">% 不显示字符串中的空格</span></span><br><span class="line">frame=single,                               <span class="comment">% 设置代码块边框</span></span><br><span class="line">numbers=left,                               <span class="comment">% 在左侧显示行号</span></span><br><span class="line"><span class="comment">% numberstyle=\footnotesize\color&#123;gray&#125;,    % 设置行号格式</span></span><br><span class="line">numberstyle=<span class="keyword">\color</span>&#123;darkgray&#125;,               <span class="comment">% 设置行号格式</span></span><br><span class="line">backgroundcolor=<span class="keyword">\color</span>&#123;white&#125;,              <span class="comment">% 设置背景颜色</span></span><br><span class="line">keywordstyle=<span class="keyword">\color</span>&#123;blue&#125;,                  <span class="comment">% 设置关键字颜色</span></span><br><span class="line">commentstyle=<span class="keyword">\it</span><span class="keyword">\color</span>[RGB]&#123;0,100,0&#125;,       <span class="comment">% 设置代码注释的格式</span></span><br><span class="line">stringstyle=<span class="keyword">\sl</span><span class="keyword">\color</span>&#123;red&#125;,                 <span class="comment">% 设置字符串格式</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>书写代码：（写在正文区）</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">\begin</span>&#123;lstlisting&#125;[language=c]</span><br><span class="line"><span class="params">#</span>include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">// main function</span><br><span class="line">int main() &#123;</span><br><span class="line">    printf(&quot;Hello World!&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">\end</span>&#123;lstlisting&#125;</span><br></pre></td></tr></table></figure>
+
 
       </div>
       <div class="post-tags-categories">
+        
+        <div class="tags">
+          
+            <a href="/tags/Latex/" class="">
+              Latex
+            </a>
+          
+            <a href="/tags/%E8%AE%BA%E6%96%87%E6%8E%92%E7%89%88/" class="">
+              论文排版
+            </a>
+          
+        </div>
         
       </div>
       
@@ -652,7 +914,7 @@
     </li>
     <li class="post-copyright-link">
     <strong>文章链接:  </strong>
-    <a href="/2024/02/20/hello-world/" target="_blank" title="Hello World">http://example.com/2024/02/20/hello-world/</a>
+    <a href="/2023/03/01/Latex基础语法/" target="_blank" title="Latex基础语法">http://example.com/2023/03/01/Latex基础语法/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明:   </strong>
@@ -674,39 +936,21 @@
   <div class="post-nav-prev post-nav-item">
     <div class="post-nav-img" style="background-size: cover; 
       background-position: center center;">
-      <img class="lazyload lazyload placeholder" src="https://pic4.zhimg.com/80/v2-e434e3a2888fb4efb1844845b8791d1f_1440w.webp" class="lazyload placeholder" data-srcset="https://pic4.zhimg.com/80/v2-e434e3a2888fb4efb1844845b8791d1f_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+      <img class="lazyload lazyload placeholder" src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
     </div>
-    <a href="/2024/02/20/Test/" class="post-nav-link">
+    <a href="/2024/02/20/hello-world/" class="post-nav-link">
       <div class="title">
         <i class="fas fa-angle-left"></i> 上一篇:
-        <div class="title-text">Test</div>
+        <div class="title-text">Hello World</div>
       </div>
       
       <!-- <div class="content">
-        Hexo测试文章
-123456#include&lt;iostream&gt;int main()&#123;    s
+        Welcome to Hexo! This is your very first post. Check documen
       </div> -->
     </a>
   </div>
 
 
-
-  
-  <div class="post-nav-next post-nav-item">
-    <div class="post-nav-img" style="background-size: cover; 
-      background-position: center center;">
-      <img class="lazyload lazyload placeholder" src="https://pic1.zhimg.com/80/v2-03a22891ccba9bccf6424dfd7cbf4be7_1440w.webp" class="lazyload placeholder" data-srcset="https://pic1.zhimg.com/80/v2-03a22891ccba9bccf6424dfd7cbf4be7_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" src="" alt="">
-    </div>
-    <a href="/2023/03/01/Latex%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" class="post-nav-link">
-      <div class="title">
-        下一篇: <i class="fas fa-angle-right"></i>
-        <div class="title-text">Latex基础语法</div>
-      </div>
-      <!-- <div class="content">
-        在begin&#123;document&#125;和end&#123;document&#125;之间的就是正文区，而
-      </div> -->
-    </a>
-  </div>
 
 </div>
 
@@ -927,7 +1171,7 @@
   <div class='content'>
     <div class="toc-main">
       <div class="toc-content">
-        <!-- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol> -->
+        <!-- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8F%E5%8C%85%E5%AF%BC%E5%85%A5"><span class="toc-text">宏包导入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AD%E6%96%87%E6%94%AF%E6%8C%81"><span class="toc-text">中文支持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E9%87%8A"><span class="toc-text">注释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6"><span class="toc-text">转义字符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A6%96%E8%A1%8C%E7%BC%A9%E8%BF%9B"><span class="toc-text">首行缩进</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8D%A2%E8%A1%8C"><span class="toc-text">换行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%8D%A2%E6%AE%B5%E8%90%BD"><span class="toc-text">更换段落</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E6%9B%B4%E6%8D%A2"><span class="toc-text">页面更换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%B8%E5%BC%A0%E8%AE%BE%E7%BD%AE"><span class="toc-text">纸张设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E9%A2%98%E5%88%86%E7%BA%A7"><span class="toc-text">标题分级</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%A8%A1%E6%9D%BF"><span class="toc-text">使用模板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E5%8F%8C%E6%A0%8F%E6%A8%A1%E5%BC%8F"><span class="toc-text">单双栏模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A9%BA%E6%A0%BC"><span class="toc-text">空格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E9%A2%98%E3%80%81%E4%BD%9C%E8%80%85%E4%B8%8E%E6%97%A5%E6%9C%9F"><span class="toc-text">标题、作者与日期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E3%80%81%E8%84%9A%E6%B3%A8"><span class="toc-text">引用、脚注</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%85%AC%E5%BC%8F%E5%BC%95%E7%94%A8"><span class="toc-text">4.1 公式引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E7%89%87%E5%BC%95%E7%94%A8"><span class="toc-text">图片引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E5%BC%95%E7%94%A8"><span class="toc-text">参考文献引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%84%9A%E6%B3%A8"><span class="toc-text">脚注</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95"><span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E4%BD%93%E3%80%81%E5%A4%A7%E5%B0%8F%E4%B8%8E%E9%A2%9C%E8%89%B2"><span class="toc-text">字体、大小与颜色</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%BE%E6%8E%A5"><span class="toc-text">链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E7%89%87"><span class="toc-text">图片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A8%E6%A0%BC"><span class="toc-text">表格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F"><span class="toc-text">数学公式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码</span></a></li></ol> -->
         <div class="toc"></div>
       </div>
     </div>
