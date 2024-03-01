@@ -11,7 +11,7 @@
   <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-  <title>DMA简要介绍 | 码到成功</title>
+  <title>C++11 多线程 | 码到成功</title>
 
   <link rel="icon" type="image/png" href="/coding.png">
   <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
@@ -572,21 +572,21 @@
 
 
 <div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
-  background-position: center center;position: relative;background-image:url('https://pic4.zhimg.com/80/v2-e434e3a2888fb4efb1844845b8791d1f_1440w.webp')">
+  background-position: center center;position: relative;background-image:url('https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp')">
   <div class="post-detail-header-mask"></div>
   <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
   
   <div class="post-detail-header_info-box">
     <div class="title-box">
       <span class="title">
-        DMA简要介绍
+        C++11 多线程
       </span>
     </div>
     
     
       
         <span class="post-detail-header_date">
-          <i class="fas fa-calendar"></i> 发表于：2024-02-28 |
+          <i class="fas fa-calendar"></i> 发表于：2024-03-01 |
         </span>
       
 
@@ -594,8 +594,8 @@
         <span class="post-detail-header_categories">
           <i class="iconfont iconbookmark1"></i> 分类：
           
-            <a href="/categories/STM32/" class="post-detail-header_category">
-              STM32
+            <a href="/categories/C/" class="post-detail-header_category">
+              C++
             </a>
           
         </span>
@@ -604,11 +604,11 @@
       
         <div class="post-detail-header_wordcount">
           <span class="totalcount">
-            <i class="fas fa-file-text-o"></i> 字数统计: 3.1k |
+            <i class="fas fa-file-text-o"></i> 字数统计: 2k |
           </span>
   
           <span class="min2read">
-            <i class="fas fa-clock"></i> 阅读时长: 10分钟 |
+            <i class="fas fa-clock"></i> 阅读时长: 9分钟 |
           </span>
   
           
@@ -635,53 +635,244 @@
   <div class="main-content">
     <article class="post post-detail">
       <div class="post-content">
-        <h1 id="DMA"><a href="#DMA" class="headerlink" title="DMA"></a>DMA</h1><p>DMA的数据转运可以从外设到存储器，也可以是从存储器到外设，也可以从存储器转运到存储器；转运的次数由传输计数器控制；DMA的触发源有软件触发和硬件触发，</p>
-<p>DMA进行转运的条件：</p>
+        <h1 id="C-11-多线程小记"><a href="#C-11-多线程小记" class="headerlink" title="C++11 多线程小记"></a>C++11 多线程小记</h1><blockquote>
+<p>参考：</p>
+<p>C++11 thread多线程：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sjc_0910/article/details/118861539">https://blog.csdn.net/sjc_0910&#x2F;article&#x2F;details&#x2F;118861539</a></p>
+<p>C++11 左右值引用：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Jacky_Feng/article/details/120742414">https://blog.csdn.net/Jacky_Feng&#x2F;article&#x2F;details&#x2F;120742414</a></p>
+<p>C++11 移动构造函数：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/365412262">https://zhuanlan.zhihu.com/p/365412262</a></p>
+</blockquote>
+<h2 id="std-thread"><a href="#std-thread" class="headerlink" title="std::thread"></a>std::thread</h2><p>在C中已经有一个叫做<code>pthread</code>的东西来进行多线程编程，但是并不好用 ，所以c++11标准库中出现了一个叫作<code>std::thread</code>的东西。</p>
+<h3 id="1-成员函数"><a href="#1-成员函数" class="headerlink" title="1 成员函数"></a>1 成员函数</h3><p>构造函数和析构函数</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>类别</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>thread() noexcept</code></td>
+<td>默认构造函数</td>
+<td>创建一个线程， 什么也不做</td>
+</tr>
+<tr>
+<td><code>template &lt;class Fn, class… Args&gt; explicit thread(Fn&amp;&amp; fn, Args&amp;&amp;… args)</code></td>
+<td>初始化构造函数</td>
+<td>创建一个线程， 以<code>args</code>为参数 执行<code>fn</code>函数</td>
+</tr>
+<tr>
+<td><code>thread(const thread&amp;) = delete</code></td>
+<td>复制构造函数</td>
+<td>（已删除）</td>
+</tr>
+<tr>
+<td><code>thread(thread&amp;&amp; x) noexcept</code></td>
+<td>移动构造函数</td>
+<td>构造一个与<code>x</code> 相同的对象,会破坏<code>x</code>对象</td>
+</tr>
+<tr>
+<td><code>~thread()</code></td>
+<td>析构函数</td>
+<td>析构对象</td>
+</tr>
+</tbody></table>
+<p>成员函数</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>void join()</code></td>
+<td>等待子线程结束并清理资源（会阻塞）</td>
+</tr>
+<tr>
+<td><code>bool joinable()</code></td>
+<td>返回线程是否可以执行join函数</td>
+</tr>
+<tr>
+<td><code>void detach()</code></td>
+<td>将线程与调用其的线程分离，彼此独立执行（此函数必须在线程创建时立即调用，且调用此函数会使其不能被join）</td>
+</tr>
+<tr>
+<td><code>std::thread::id get_id()</code></td>
+<td>获取线程id</td>
+</tr>
+<tr>
+<td><code>thread&amp; operator=(thread &amp;&amp;rhs)</code></td>
+<td>见移动构造函数（如果对象是joinable的，那么会调用<code>std::terminate()</code>结果程序）</td>
+</tr>
+</tbody></table>
+<h3 id="2-示例"><a href="#2-示例" class="headerlink" title="2 示例"></a>2 示例</h3><ul>
+<li><code>lambda</code>表达式传参</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;thread&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;HiHiHi&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="function">std::thread <span class="title">td1</span><span class="params">([] &#123;</span></span></span><br><span class="line"><span class="params"><span class="function">		std::cout &lt;&lt; <span class="string">&quot;Hello,&quot;</span>;</span></span></span><br><span class="line"><span class="params"><span class="function">	&#125;)</span>, <span class="title">td2</span><span class="params">([] &#123;</span></span></span><br><span class="line"><span class="params"><span class="function">		std::cout &lt;&lt; <span class="string">&quot;World!&quot;</span>;</span></span></span><br><span class="line"><span class="params"><span class="function">	&#125;)</span>, <span class="title">td3</span><span class="params">(func)</span></span>;</span><br><span class="line"></span><br><span class="line">	td1.<span class="built_in">join</span>();</span><br><span class="line">	td2.<span class="built_in">join</span>();</span><br><span class="line">	td3.<span class="built_in">join</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>多线程运行时是以异步方式执行的，异步方式可以同时执行多条语句。</p>
+<p>在上面的例子中，我们定义了3个thread，这3个thread在执行时并不会按照一定的顺序。</p>
+<p>输出可能以任意一个顺序输出。</p>
 <ul>
-<li>第一，<strong>开关控制</strong>，DMA_Cmd必须使能，</li>
-<li>第二，<strong>传输计数器必须大于0</strong>，</li>
-<li>第三，<strong>触发源</strong>，必须有触发信号，触发一次，转运一次，传输计数器自减一次**<br>当传输计数器等于0，且没有自动重装时，无论是否触发，DMA都不会再进行转运了，此时需要DMA_Cmd，给DISABLE，关闭DMA，再为传输计数器写入一个大于0的数，再DMA_Cmd，给ENABLE，开启DMA，DMA才能继续工作，写传输计数器时，必须要先关闭DMA，再进行，不能在DMA开启时，写传输计数器。</li>
+<li>传入的函数带参数</li>
 </ul>
-<h2 id="DMA简介"><a href="#DMA简介" class="headerlink" title="DMA简介"></a>DMA简介</h2><ul>
-<li>DMA（Direct Memory Access）直接存储器存取，主要是用来协助CPU，完成数据转运的工作</li>
-<li>DMA可以提供外设（外设寄存器，一般是外设的数据寄存器DR，Data Register，比如ADC的数据寄存器，串口的数据寄存器）和存储器（运行内存（SRAM）和程序存储器（Flash）是存储变量数组和程序代码的地方）或者存储器与存储器之前的高速数据传输，无须CPU干预，节省了CPU的资源</li>
-<li>12个独立可配置的通道（数据转运的路径）：DMA1（7个通道），DMA2（5个通道）</li>
-<li>每个通道都支持软件触发和特定的硬件触发，存储器到存储器的数据转运，一般用软件触发，外设到存储器的转运一般用硬件触发</li>
-<li>STM32F103C8T6 DMA资源：DMA1（7个通道）</li>
-</ul>
-<h2 id="DMA-基本结构"><a href="#DMA-基本结构" class="headerlink" title="DMA 基本结构"></a>DMA 基本结构</h2><p><img src="https://s2.loli.net/2024/02/28/6IkWFexsVY2Jh7Z.png" class="lazyload placeholder" data-srcset="https://s2.loli.net/2024/02/28/6IkWFexsVY2Jh7Z.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="DMA基本结构.png"></p>
-<p>DMA的数据转运可以从外设到存储器，也可以是从存储器到外设，也可以从存储器转运到存储器，外设和存储器，都有3个参数，第一个是起始地址，有外设端的起始地址，和存储器端的起始地址，这两个参数决定了数据时从哪里来，到哪里去的，第二个参数是数据宽度，这个参数的作用是，指定一次转运要按多大的数据宽度来进行，可以选择字节Byte、半字节HalfWord和字Word每字节就是8位转运一个uint8_t，半字节是16位uint16_t，字是32位uint32_t</p>
-<p>例如ADC的数据，ADC的数据是uint16_t，所以参数就要选择半字节，依次转运一个uint16_t，第三个参数是地址是否自增，这个参数的作用是，指定一次转运完成后，下一次转运，是不是要把地址移动到下一个位置去，相当于是指针p++，比如ADC扫描模式，用DMA转运数据，外设地址是ADC_DR寄存器，寄存器这边，显然地址是不用自增的，如果自增下一次转运就跑到别的寄存器那里了，存储器这边地址就需要自增，每转运一个数据后，就往后挪个坑，要不然下次再转就把上次的覆盖掉了，这就是地址是否自增的作用，就是指定是否转运一次就挪个坑。</p>
-<p><strong>传输计数器</strong>：用来指定，总共转运几次，这个传输计数器是个自减计数器，比如写个5，那DMA就只能进行5次数据转运，转运过程中，每转运一次计数器的值就会减1，当传输计数器减到0之后，DMA就不会再进行数据转运了，减到0之后之前自增的地址，也会恢复到起始地址的位置，以方便之后DMA新一轮的转运。传输计数器的右边的自动重装器的作用就是，传输计数器减到0之后，是否要自动恢复到最初的值。比如传输计数器给5，如果不使用自动红装器，那转运5次后，DMA就结束了，如果使用自动重装器，那转运5次，计数器减到0后，就会立即重装到初始值5，自动重装器决定了转运的模式，如果不重装，就是正常的单次模式，如果重装就是循环模式，如果你想转运一个数组，那一般是单次模式，转运一轮就结束了，如果是ADC扫描模式+连续转换那为了配合ADC，DMA也需要使用循环模式，这个循环模式和ADC的连续模式差不多。</p>
-<p>DMA的触发控制，触发就是决定DMA在什么时机进行转运的，触发源，有硬件触发，和软件触发，具体选择由M2M（Memory to Memory ）这个参数决定，当给M2M位1时，DMA就会选择软件触发，这个软件触发不是调用某个函数一次就触发一次，而是，以最快的速度，连续不断地出发DMA，指一直到传输计数器清0，软件触发和循环模式不能同时用，因为软件触发是想把传输计数器清零，循环模式是清零后自动重装，如果同时用，那DMA就停不下了，软件触发一般适用于存储器到存储器的转运，因为存储器到存储器的转运是软件启动不需要时机，当M2M位给0，那就是使用硬件触发了，硬件触发源可以选择ADC、串口、定时器等等，使用硬件触发的转运一般是与外设有关的转运，这些转运需要一定的时机，比如ADC转换完成、串口收到数据、定时时间到等等，当硬件达到这些时机时，传一个信号过来，来触发DMA进行转运。</p>
-<p>当给DMA使能后，DMA就准备就绪，可以进行转运了。</p>
-<h2 id="DMA请求"><a href="#DMA请求" class="headerlink" title="DMA请求"></a>DMA请求</h2><p><img src="https://s2.loli.net/2024/02/28/hgXTj9sH8lLPNZW.png" class="lazyload placeholder" data-srcset="https://s2.loli.net/2024/02/28/hgXTj9sH8lLPNZW.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="DMA请求映像.png"></p>
-<p>此图是DMA1的请求映像，下面是DMA的7个通道，每个通道都有一个数据选择器，可以选择硬件触发和软件触发，左边的硬件触发源，每个通道的硬件触发源都是不同的，如果想选择ADC1来触发必须选择通道1，如果想选择TIM2的更新事件来触发的话，那就必须选择通道2，每个通道的硬件触发源都不同，如果想使用某个硬件触发源的话，就必须使用它所在的通道。如果使用软件触发那通道就可以任意选择。如果要使用ADC1，那就有个库函数ADC_DMACmd，必须使用这个库函数开启ADC1的这一路输出，它才有效，如果想要选择定时器2的通道3那也会有个TIM_DMACmd函数，用来进行DMA输出控制，触发源具体选择哪个，取决于你把哪个外设的DMA输出开启了，如果都开启了，那是一个或门，理论上三个硬件都可以触发，一般情况下，都是开启其中一个，<em>这7个触发源，进入到仲裁器，进行优先级判断，最终产生内部的DMA1请求，默认优先级是通道号越小，优先级越高，也可以在程序中配置优先级</em></p>
-<h2 id="数据宽度与对齐"><a href="#数据宽度与对齐" class="headerlink" title="数据宽度与对齐"></a>数据宽度与对齐</h2><p><img src="https://s2.loli.net/2024/02/28/gI1vMeSmwLCK9Qj.png" class="lazyload placeholder" data-srcset="https://s2.loli.net/2024/02/28/gI1vMeSmwLCK9Qj.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="数据传输宽度.png"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;thread&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;Answer: &quot;</span> &lt;&lt; a + b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="function">std::thread <span class="title">td3</span><span class="params">(func, <span class="number">1</span>, <span class="number">2</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">	td3.<span class="built_in">join</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <ul>
-<li><p>源端宽度 &#x3D; 目标宽度：完整转运</p>
-</li>
-<li><p>源端宽度 &lt; 目标宽度：高位补零</p>
-</li>
-<li><p>源端宽度 &gt; 目标宽度：舍弃高位</p>
-</li>
+<li>执行带引用参数的函数</li>
 </ul>
-<p>第一列是源端宽度，第二列是目标宽度，第三列是传输数目，当源端宽度和目标宽度都是8位时，转运第一步在源端的0位置，读数据B0，在目标的0位置，写数据B0，之后就是把B1，从左边挪到右边，接着B2、B3，这是源端和目标都是8位的情况，操作也很正常，继续就是源端是8位，目标是16位，它的操作就是，在源端读B0，在目标写00B0，之后读B1写00B1，等等，意思就是<strong>如果目标宽度比源端的数据宽度大那就在目标数据前面多出来的空位补0</strong>，之后8位转运到32位，也是一样的处理，前面空出来的都补0，当<strong>目标数据宽度比源端数据宽度小时</strong>，比如由16位转到8位现象就是，读B1B0，只写入B0，读B3B2，只写入B2，把多出来的高位舍弃掉，意思就是如果你把小的数据转到大的里面，高位就会补0，如果把大的数据转到小的里面去，高位就会舍弃掉，如果数据宽度一样，那就没事。</p>
-<h2 id="数据转运-DMA"><a href="#数据转运-DMA" class="headerlink" title="数据转运+DMA"></a>数据转运+DMA</h2><p><img src="https://s2.loli.net/2024/02/28/Dv465pYOhWSKy7l.png" class="lazyload placeholder" data-srcset="https://s2.loli.net/2024/02/28/Dv465pYOhWSKy7l.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="数据转运_DMA.png"></p>
-<p>将SRAM中的数组<code>DataA</code>，转运到另一个数组<code>DataB</code>中，参数配置：外设地址是<code>DataA</code>数组的首地址，存储器地址，给<code>DataB</code>数组的首地址，数据宽度，两个数组的类型都是<code>uint8_t</code>，所以数据宽度都是按8位的字节传输，两个站点的地址都自增，转运完成后<code>DataB</code>数组的所有数据。就会等于<code>DataA</code>数组。如果左边不自增，右边自增，转运完成后，<code>DataB</code>的所有数据都会等于<code>DataA[0]</code>，如果左边自增，右边不自增，<code>DataB[0]</code>等于<code>DataA</code>的最后一个数，DataB其他的数不变，如果左右都不自增，那就是<code>DataA[0]</code>转到<code>DataB[0]</code>，其他的数据不变。方向参数，是外设站点转运到存储器站点。传输计数器给7，不需要自动重装，触发选择部分选择软件触发，最后调用<code>DMA_Cmd</code>，给DMA使能，转运7次后，传输计数器自减到0，DMA停止，转运完成，这里的数据转运是一种复制转运，转运完成后的DataA的数据并不会消失。</p>
-<h2 id="ADC扫描模式-DMA"><a href="#ADC扫描模式-DMA" class="headerlink" title="ADC扫描模式+DMA"></a>ADC扫描模式+DMA</h2><p><img src="https://s2.loli.net/2024/02/28/xIu1ce4BHfMzlK8.png" class="lazyload placeholder" data-srcset="https://s2.loli.net/2024/02/28/xIu1ce4BHfMzlK8.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="ADC扫描模式_DMA.png"></p>
-<p>左边是ADC扫描模式的转运流程，触发一次，7个通道依次进行AD转换，然后把转换结果都放在ADC_DR寄存器里面，在每个单独的通道转换完成后，进行一次DMA数据转运，并且目的地址进行自增，防止数据被覆盖，DMA的配置，外设地址，写入ADC_DR这个寄存器的地址，存储器的地址，可以在SRAM中定义一个数组ADValue然后把ADValue的地址当做存储器的地址，之后数据宽度，因为ADC_DR和SRAM数组需要uint16_t的数据，所以数据宽度都是16位的半字传输，外设地址不自增，存储器地址自增，传输方向，是外设站点到存储器站点，传输计数器和通道数一样，通道有7个，所以计数7次，计数器知否重装，看ADC的配置，ADC如果是单次扫描，那DMA的传输计数器可以不自动重装，转换一轮就停止，如果ADC是连续扫描，那DMA就可以选择使用自动重装，在ADC启动下一轮的转换的时候，DMA也启动下一轮的转运，ADC和DMA同步工作，触发选择ADC的硬件触发，ADC扫描模式在单个通道完成转换后，不会置任何标志位，也不会产生中断，但是会产生DMA请求，去触发DMA转运。一般来说DMA最常用的用途就是配合ADC的扫描模式，来解决ADC固有的缺陷，数据覆盖的问题。</p>
-<h2 id="DMA-初始化步骤"><a href="#DMA-初始化步骤" class="headerlink" title="DMA 初始化步骤"></a>DMA 初始化步骤</h2><p>第一步，RCC开启DMA的时钟,AHB总线的设别</p>
-<p>第二步，直接调用DMA_Init，初始化配置的参数，包括外设和存储器站点的起始地址、数据宽度、地址是否自增、方向、传输计数器、是否需要自动重装、选择触发源、通道优先级</p>
-<p>第三步，DMA_Cmd给指定通道使能，如果使用的是硬件触发，要在对应外设调用XXX_DMACmd，开启一下触发信号的输出，需要DMA的中断，就调用DMA_ITConfig，开启中断输出，再在NVIC中配置相应的中断通道，然后写中断函数就行了，如果传输计数器清0，再想给传输计数器赋值，就DMA失能、写传输计数器、DMA使能，就可以了</p>
+<p>注意观察构造函数：<code>Args&amp;&amp;... args</code></p>
+<p>很明显的右值引用，那么我们该如何传递一个左值呢？<code>std::ref</code>和<code>std::cref</code>很好地解决了这个问题。</p>
+<p><code>std::ref</code> 可以包装按引用传递的值。</p>
+<p><code>std::cref</code> 可以包装按<code>const</code>引用传递的值。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;thread&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">changeValue</span><span class="params">(T&amp; x, T val)</span> </span>&#123;</span><br><span class="line">	x = val;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	std::thread t[<span class="number">20</span>];</span><br><span class="line">	<span class="type">int</span> nums[<span class="number">20</span>];</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">		t[i] = std::<span class="built_in">thread</span>(changeValue&lt;<span class="type">int</span>&gt;, std::<span class="built_in">ref</span>(nums[i]), i + <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">		t[i].<span class="built_in">join</span>();</span><br><span class="line">		std::cout &lt;&lt; nums[i] &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-注意"><a href="#3-注意" class="headerlink" title="3 注意"></a>3 注意</h3><ul>
+<li>线程是在thread对象被定义的时候开始执行的，而不是在调用join函数时才执行的，调用join函数只是阻塞等待线程结束并回收资源。</li>
+</ul>
+<blockquote>
+<p><code>join</code>函数是等待子线程完成，然后主线程再继续执行</p>
+</blockquote>
+<ul>
+<li>分离的线程（执行过detach的线程）会在调用它的线程结束或自己结束时释放资源。</li>
+<li>线程会在函数运行完毕后自动释放，不推荐利用其他方法强制结束线程，可能会因资源未释放而导致内存泄漏。</li>
+<li><strong>没有执行<code>join</code>或<code>detach</code>的线程在程序结束时会引发异常</strong></li>
+</ul>
+<h2 id="std-mutex与std-atomic"><a href="#std-mutex与std-atomic" class="headerlink" title="std::mutex与std::atomic"></a>std::mutex与std::atomic</h2><h3 id="1-std-mutex"><a href="#1-std-mutex" class="headerlink" title="1 std::mutex"></a>1 std::mutex</h3><p>多线程操作同一变量</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;thread&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> val = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">increase</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">100000</span>; i++) &#123;</span><br><span class="line">		val++;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	std::thread t[<span class="number">20</span>];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">		t[i] = std::<span class="built_in">thread</span>(increase);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">		t[i].<span class="built_in">join</span>();</span><br><span class="line">	&#125;</span><br><span class="line">	std::cout &lt;&lt; val &lt;&lt; <span class="string">&quot;\n&quot;</span>;	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>可以发现此代码输出并不是正常情况下的<code>2000000</code>，原因就是多线程访问并修改一个变量时造成了冲突，所以mutex派上用场</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>void lock()</code></td>
+<td>将mutex上锁。<br>如果mutex已经被其它线程上锁， 那么会阻塞，直到解锁；<br>如果mutex已经被同一个线程锁住， 那么会产生死锁。</td>
+</tr>
+<tr>
+<td><code>void unlock()</code></td>
+<td>解锁mutex，释放其所有权。 如果有线程因为调用lock()不能上锁而被阻塞，则调用此函数会将mutex的主动权随机交给其中一个线程； 如果mutex不是被此线程上锁，那么会引发未定义的异常。</td>
+</tr>
+<tr>
+<td><code>bool try_lock()</code></td>
+<td>尝试将mutex上锁。 如果mutex未被上锁，则将其上锁并返回true；<br/>如果mutex已被锁则返回false。</td>
+</tr>
+</tbody></table>
+<p>可以利用mutex进行改进：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;mutex&gt;</span></span></span><br><span class="line"></span><br><span class="line">std::mutex mtx;</span><br><span class="line"><span class="type">int</span> val = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">increase</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">100000</span>; i++) &#123;</span><br><span class="line">		mtx.<span class="built_in">lock</span>();</span><br><span class="line">		val++;</span><br><span class="line">		mtx.<span class="built_in">unlock</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	std::thread t[<span class="number">20</span>];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">		t[i] = std::<span class="built_in">thread</span>(increase);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">		t[i].<span class="built_in">join</span>();</span><br><span class="line">	&#125;</span><br><span class="line">	std::cout &lt;&lt; val &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-std-atomic"><a href="#2-std-atomic" class="headerlink" title="2 std::atomic"></a>2 std::atomic</h3><p>mutex每次循环都要加锁解锁，比较慢，而atomic比较快。将上述代码改成下面代码同样也可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;atomic&gt;</span></span></span><br><span class="line"></span><br><span class="line">std::atomic_int val = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">increase</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">100000</span>; i++) &#123;</span><br><span class="line">		val++;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	std::thread t[<span class="number">20</span>];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">		t[i] = std::<span class="built_in">thread</span>(increase);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">		t[i].<span class="built_in">join</span>();</span><br><span class="line">	&#125;</span><br><span class="line">	std::cout &lt;&lt; val &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>std::atomic_int</code>只是<code>std::atomic&lt;int&gt;</code>的别名。</p>
+<p>即使是多线程，也要像同步进行一样<strong>同步操作</strong>atomic对象，从而省去了mutex上锁、解锁的时间消耗。</p>
+<table>
+<thead>
+<tr>
+<th>构造函数</th>
+<th>类型</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>atomic() noexcept = default</code></td>
+<td>默认构造函数</td>
+<td>构造一个atomic对象（未初始化，可通过atomic_init进行初始化）</td>
+</tr>
+<tr>
+<td><code>constexpr atomic(T val) noexcept</code></td>
+<td>初始化构造函数</td>
+<td>构造一个atomic对象，用<code>val</code>的值来初始化</td>
+</tr>
+</tbody></table>
+<h2 id="std-async"><a href="#std-async" class="headerlink" title="std::async"></a>std::async</h2><h3 id="1-async"><a href="#1-async" class="headerlink" title="1 async"></a>1 async</h3><blockquote>
+<p>头文件<code>&lt;future&gt;</code></p>
+</blockquote>
+<p><strong>大多数情况下使用async而不用thread</strong></p>
+<ul>
+<li>thread可以快速、方便地创建线程，但在async面前，就是小巫见大巫了。</li>
+<li>async可以根据情况选择同步执行或创建新线程来异步执行，当然也可以手动选择。对于async的返回值操作也比thread更加方便。</li>
+</ul>
+<p><strong>std::async参数：</strong></p>
+<p>不同于thread，async是一个函数，所以没有成员函数。</p>
+<table>
+<thead>
+<tr>
+<th>重载版本</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>template &lt;class Fn, class… Args&gt;<br>future&lt;typename result_of&lt;Fn(Args…)&gt;::type&gt;<br />async (Fn&amp;&amp; fn, Args&amp;&amp;… args)</td>
+<td>异步或同步（根据操作系统而定）以args为参数执行fn<br />同样地，传递引用参数需要<code>std::ref</code>或<code>std::cref</code></td>
+</tr>
+<tr>
+<td>template &lt;class Fn, class… Args&gt; <br>future&lt;typename result_of&lt;Fn(Args…)&gt;::type&gt;<br> <code>async (launch policy, Fn&amp;&amp; fn, Args&amp;&amp;… args);</code></td>
+<td>异步或同步（根据<code>policy</code>参数而定（见下文））以args为参数执行fn，引用参数同上</td>
+</tr>
+</tbody></table>
+<h3 id="2-std-launch强枚举类（enum-class）"><a href="#2-std-launch强枚举类（enum-class）" class="headerlink" title="2 std::launch强枚举类（enum class）"></a>2 std::launch强枚举类（enum class）</h3><p>std::launch有2个枚举值和1个特殊值：</p>
+<table>
+<thead>
+<tr>
+<th>标识符</th>
+<th>实际值</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>枚举值：launch::async</td>
+<td>0x1（1）</td>
+<td>异步启动</td>
+</tr>
+<tr>
+<td>枚举值：launch::deferred</td>
+<td>0x2（2）</td>
+<td>在调用<code>future::get</code>、<code>future::wait</code>时同步启动（std::future见后文）</td>
+</tr>
+<tr>
+<td>特殊值：launch::async</td>
+<td>launch::deferred</td>
+<td>0x3（3）</td>
+</tr>
+</tbody></table>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;future&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	std::<span class="built_in">async</span>(std::launch::async, [](<span class="type">const</span> <span class="type">char</span>* message) &#123;</span><br><span class="line">		std::cout &lt;&lt; message;</span><br><span class="line">	&#125;, <span class="string">&quot;Hello, &quot;</span>);</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;World\n&quot;</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>编译器可能会有警告，因为编译器不想让你丢弃async的返回值std::future，不过在这个例子中不需要它，忽略这个警告就行了。</p>
+<h3 id="3-std-future"><a href="#3-std-future" class="headerlink" title="3 std::future"></a>3 std::future</h3><p>使用它获取函数返回值</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;future&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span>... Args&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">decltype</span>(<span class="keyword">auto</span>) <span class="title">sum</span><span class="params">(Args&amp;&amp;... args)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (<span class="number">0</span> + ... + args);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	std::future&lt;<span class="type">int</span>&gt; val = std::<span class="built_in">async</span>(std::launch::async, sum&lt;<span class="type">int</span>, <span class="type">int</span>, <span class="type">int</span>&gt;, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">	std::cout &lt;&lt; val.<span class="built_in">get</span>() &lt;&lt; <span class="string">&quot;\n&quot;</span>;  <span class="comment">// 6</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
       </div>
       <div class="post-tags-categories">
         
         <div class="tags">
           
-            <a href="/tags/DMA/" class="">
-              DMA
+            <a href="/tags/C/" class="">
+              C++
+            </a>
+          
+            <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="">
+              多线程
             </a>
           
         </div>
@@ -695,7 +886,7 @@
     </li>
     <li class="post-copyright-link">
     <strong>文章链接:  </strong>
-    <a href="/2024/02/28/DMA简要介绍/" target="_blank" title="DMA简要介绍">http://example.com/2024/02/28/DMA简要介绍/</a>
+    <a href="/2024/03/01/C-11-多线程/" target="_blank" title="C++11 多线程">http://example.com/2024/03/01/C-11-多线程/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明:   </strong>
@@ -713,41 +904,21 @@
 
 
 
-  
-  <div class="post-nav-prev post-nav-item">
-    <div class="post-nav-img" style="background-size: cover; 
-      background-position: center center;">
-      <img class="lazyload lazyload placeholder" src="https://pic1.zhimg.com/80/v2-03a22891ccba9bccf6424dfd7cbf4be7_1440w.webp" class="lazyload placeholder" data-srcset="https://pic1.zhimg.com/80/v2-03a22891ccba9bccf6424dfd7cbf4be7_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
-    </div>
-    <a href="/2024/02/29/ARM%E4%B8%AD%E6%96%AD%E7%9F%A5%E8%AF%86%E7%82%B9%E5%B0%8F%E8%AE%B0/" class="post-nav-link">
-      <div class="title">
-        <i class="fas fa-angle-left"></i> 上一篇:
-        <div class="title-text">ARM中断知识点小记</div>
-      </div>
-      
-      <!-- <div class="content">
-        ARM中断相关知识点小记ARM体系中的中断类型复位（1）当处理器复位引脚有效时，系统产生复位中断，程序跳转到复位异常中断
-      </div> -->
-    </a>
-  </div>
-
 
 
   
   <div class="post-nav-next post-nav-item">
     <div class="post-nav-img" style="background-size: cover; 
       background-position: center center;">
-      <img class="lazyload lazyload placeholder" src="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" src="" alt="">
+      <img class="lazyload lazyload placeholder" src="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" src="" alt="">
     </div>
-    <a href="/2024/02/28/ADC%E6%A8%A1%E6%95%B0%E8%BD%AC%E6%8D%A2%E5%99%A8%E7%AE%80%E8%A6%81%E4%BB%8B%E7%BB%8D/" class="post-nav-link">
+    <a href="/2024/03/01/Cmake%E6%8C%87%E4%BB%A4%E5%A4%A7%E5%85%A8%E7%BA%AF%E4%BA%AB%E7%89%88/" class="post-nav-link">
       <div class="title">
         下一篇: <i class="fas fa-angle-right"></i>
-        <div class="title-text">ADC模数转换器简要介绍</div>
+        <div class="title-text">Cmake指令大全纯享版</div>
       </div>
       <!-- <div class="content">
-        ADC 模数转换
-ADC（Analog-Digital Converter）模拟-数字转换器
-ADC可以将引脚上连续变换
+        Windows MinGW + CMakeWindows默认使用nmake编译，如果我们要使用 MinGW 来编译需要指
       </div> -->
     </a>
   </div>
@@ -971,7 +1142,7 @@ ADC可以将引脚上连续变换
   <div class='content'>
     <div class="toc-main">
       <div class="toc-content">
-        <!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#DMA"><span class="toc-text">DMA</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DMA%E7%AE%80%E4%BB%8B"><span class="toc-text">DMA简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DMA-%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-text">DMA 基本结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DMA%E8%AF%B7%E6%B1%82"><span class="toc-text">DMA请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6%E4%B8%8E%E5%AF%B9%E9%BD%90"><span class="toc-text">数据宽度与对齐</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%BD%AC%E8%BF%90-DMA"><span class="toc-text">数据转运+DMA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ADC%E6%89%AB%E6%8F%8F%E6%A8%A1%E5%BC%8F-DMA"><span class="toc-text">ADC扫描模式+DMA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DMA-%E5%88%9D%E5%A7%8B%E5%8C%96%E6%AD%A5%E9%AA%A4"><span class="toc-text">DMA 初始化步骤</span></a></li></ol></li></ol> -->
+        <!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C-11-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B0%8F%E8%AE%B0"><span class="toc-text">C++11 多线程小记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#std-thread"><span class="toc-text">std::thread</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="toc-text">1 成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%A4%BA%E4%BE%8B"><span class="toc-text">2 示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B3%A8%E6%84%8F"><span class="toc-text">3 注意</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#std-mutex%E4%B8%8Estd-atomic"><span class="toc-text">std::mutex与std::atomic</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-std-mutex"><span class="toc-text">1 std::mutex</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-std-atomic"><span class="toc-text">2 std::atomic</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#std-async"><span class="toc-text">std::async</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-async"><span class="toc-text">1 async</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-std-launch%E5%BC%BA%E6%9E%9A%E4%B8%BE%E7%B1%BB%EF%BC%88enum-class%EF%BC%89"><span class="toc-text">2 std::launch强枚举类（enum class）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-std-future"><span class="toc-text">3 std::future</span></a></li></ol></li></ol></li></ol> -->
         <div class="toc"></div>
       </div>
     </div>
